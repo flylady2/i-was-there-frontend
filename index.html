@@ -3,9 +3,38 @@
   <head>
     <meta charset="utf-8">
     <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
-    <title></title>
+    <title>I Was There</title>
   </head>
   <body>
+    <main>
+
+    <div id="entries-collection">
+    </div>
+    <br><br>
+
+    <div class="form-container">
+      <form id="create-entry-form" style="">
+        <h3>New Entry</h3>
+        <label for="entry-date">Date of entry:</label>
+        <input type="date" id="entry-date" name="entry=date">
+
+        <textarea id='input-content' name="content"  value=""  placeholder="Put your entry here." class="input-text"></textarea>
+        <br><br>
+
+        <select id="categories" name= "categories">
+          <option value="1">What I'm Reading</option>
+          <option value="2">Lessons Learned</option>
+          <option value="3">3 things</option>
+          <option value="4">1000 words</option>
+        </select>
+        <br><br>
+
+        <input id='create-button' type="submit" name="create" value="Create new entry" class="submit">
+      </form>
+    </div>
+
+  </main>
+
 
   </body>
 </html>
