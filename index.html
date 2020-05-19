@@ -2,21 +2,23 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
+    <script type="application/javascript" src="src/index_day.js" charset="UTF-8"></script>
     <title>I Was There</title>
   </head>
   <body>
     <main>
+      <div id="days-container">
 
-    <div id="entries-collection">
-    </div>
+      </div>
+
     <br><br>
 
     <div class="form-container">
-      <form id="create-entry-form" style="">
-        <h3>New Entry</h3>
-        <label for="entry-date">Date of entry:</label>
+      <form id="create-day-form" style="">
+        <h3>New Day</h3>
+        <label for="entry-date">Today's date:</label>
         <input type="date" id="entry-date" name="entry=date">
+        <input id='input-name' type="text" name="name" value="" placeholder="Day of week" class="input-text">
 
         <textarea id='input-content' name="content"  value=""  placeholder="Put your entry here." class="input-text"></textarea>
         <br><br>
