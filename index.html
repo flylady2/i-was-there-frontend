@@ -18,8 +18,8 @@
     <div class="form-container">
       <form id="create-day-form" style="">
         <h3>New Day</h3>
-        <label for="entry-date">Today's date:</label>
-        <input type="date" id="entry-date" name="entry=date">
+        <label class="nativeDatePicker">Today's date:</label>
+        <input type="date" id="day-date" name="day-date">
         <input id='input-name' type="text" name="name" value="" placeholder="Day of week" class="input-text">
 
         <textarea id='input-content' name="content"  value=""  placeholder="Put your entry here." class="input-text"></textarea>
@@ -33,7 +33,7 @@
         </select>
         <br><br>
 
-        <input id='create-button' type="submit" name="create" value="Create new entry" class="submit">
+        <input id='create-button' type="submit" name="submit" value="Create new entry" class="submit">
       </form>
     </div>
 
