@@ -12,11 +12,12 @@ function getDays() {
     .then(res => res.json())
 
     .then(days => {
-      console.log(days)
+      //console.log(days)
 
       const daysData = days.data
       daysData.forEach(day =>
-      renderDay(day))
+        
+        renderDay(day))
 
       const daysEntries = days.included
       daysEntries.forEach(entry =>
@@ -30,9 +31,13 @@ function getDays() {
 function createFormHandler(e) {
   e.preventDefault()
   console.log('submitted')
+  //debugger;
   const dateInput = document.querySelector('#day-date').value
-  const nameInput = document.querySelector(`#input-name`).value
-  postFetchDay(dateInput, nameInput)
+  const nameInput = document.querySelector('#input-name').value
+  const entryInput = document.querySelector('#entry-input').value
+  const categoryInput = document.querySelector('#categories').value
+  const categoryId = parseInt(categoryInput)
+  postFetchDay(dateInput, nameInput, entryInput, categoryId)
 }
 
 
@@ -54,7 +59,7 @@ function renderDay(day) {
 }
 
 function renderEntry(entry) {
-  console.log(entry)
+  //console.log(entry)
 
   let entriesCollection = document.getElementById("entries-container")
   const div = document.createElement('div')
@@ -78,10 +83,10 @@ function renderEntry(entry) {
 
 }
 
-
-function postFetchDay(date, name) {
-  console.log(date, name)
-  const bodyData = {date, name}
+//entries_attributes: [:id, :content, :day_id, :category_id])
+function postFetchDay(date, name, entry_content, category_id) {
+  console.log(date, name, entry_content, category_id)
+  const bodyData = {date, name, entry_content, category_id}
 
   fetch(endPoint, {
     method: "POST",
@@ -93,7 +98,9 @@ function postFetchDay(date, name) {
   })
   .then(response => response.json())
   .then(day => {
-    console.log(day);
-    renderDay(day.data)
+
+    const dayData = day.data
+    //console.log(day);
+    renderDay(dayData)
   })
 }
