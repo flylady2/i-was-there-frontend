@@ -39,7 +39,13 @@ function createFormHandler(e) {
   const entryInput2 = document.querySelector('#entry-input-2').value
   const categoryInput2 = document.querySelector('#categories-2').value
   const categoryId2 = parseInt(categoryInput2)
-  postFetchDay(dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2)
+  const entryInput3 = document.querySelector('#entry-input-3').value
+  const categoryInput3 = document.querySelector('#categories-3').value
+  const categoryId3 = parseInt(categoryInput3)
+  const entryInput4 = document.querySelector('#entry-input-4').value
+  const categoryInput4 = document.querySelector('#categories-4').value
+  const categoryId4 = parseInt(categoryInput4)
+  postFetchDay(dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4)
 }
 
 
@@ -79,9 +85,9 @@ function renderEntry(entry, i) {
 }
 
 //entries_attributes: [:id, :content, :day_id, :category_id])
-function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_2, category_id_2) {
+function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4) {
   //console.log(date, name, entry_content, category_id)
-  const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2}
+  const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4}
 
   fetch(endPoint, {
     method: "POST",
