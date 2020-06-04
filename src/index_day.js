@@ -16,9 +16,14 @@ function getDays() {
       daysData.forEach(day =>
         renderDay(day))
       const daysEntries = days.included
+      for (let i = 0; i < daysEntries.length; i++) {
+        renderEntry(daysEntries[i], `${i}`)
+      }
+
+      //renderEntries(daysEntries)
       //debugger;
-      daysEntries.forEach(entry =>
-        renderEntry(entry))
+      //daysEntries.forEach(entry =>
+        //renderEntry(entry))
       })
 }
 
@@ -28,10 +33,19 @@ function createFormHandler(e) {
   //debugger;
   const dateInput = document.querySelector('#day-date').value
   const nameInput = document.querySelector('#input-name').value
-  const entryInput = document.querySelector('#entry-input').value
-  const categoryInput = document.querySelector('#categories').value
-  const categoryId = parseInt(categoryInput)
-  postFetchDay(dateInput, nameInput, entryInput, categoryId)
+  const entryInput1 = document.querySelector('#entry-input-1').value
+  const categoryInput1 = document.querySelector('#categories-1').value
+  const categoryId1 = parseInt(categoryInput1)
+  const entryInput2 = document.querySelector('#entry-input-2').value
+  const categoryInput2 = document.querySelector('#categories-2').value
+  const categoryId2 = parseInt(categoryInput2)
+  const entryInput3 = document.querySelector('#entry-input-3').value
+  const categoryInput3 = document.querySelector('#categories-3').value
+  const categoryId3 = parseInt(categoryInput3)
+  const entryInput4 = document.querySelector('#entry-input-4').value
+  const categoryInput4 = document.querySelector('#categories-4').value
+  const categoryId4 = parseInt(categoryInput4)
+  postFetchDay(dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4)
 }
 
 
@@ -49,30 +63,31 @@ function renderDay(day) {
     div.append(p1, p2)
     daysCollection.appendChild(div)
 }
-
-function renderEntry(entry) {
-  //debugger;
+//relBtn.setAttribute('id', `${object.id}-rel`)
+function renderEntry(entry, i) {
+  console.log(entry)
   let entriesCollection = document.getElementById("entries-container")
-  const div = document.createElement('div')
 
-    div.className = 'card'
-    div.setAttribute("included-id", `${entry.id}`)
-    //debugger;
-    const h2 = document.createElement('h2')
-    h2.innerText = `${entry.attributes.content}`
-    const h3 = document.createElement('h3')
-    h3.innerText = `${entry.attributes.category.name}`
-    //debugger;
-    div.append(h2,h3)
-    //debugger;
-    entriesCollection.appendChild(div)
+  const div = document.createElement('div')
+  div.className = 'card'
+  div.setAttribute("included-id", i)
+  const h2 = document.createElement('h2')
+  h2.setAttribute('id', i)
+  //debugger;
+  h2.innerText = `${entry.attributes.content}`
+  const h3 = document.createElement('h3')
+  h3.setAttribute('id', i)
+  h3.innerText = `${entry.attributes.category.name}`
+  //div.append(h2,h3)
+  entriesCollection.append(h2, h3)
+
 
 }
 
 //entries_attributes: [:id, :content, :day_id, :category_id])
-function postFetchDay(date, name, entry_content, category_id) {
+function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4) {
   //console.log(date, name, entry_content, category_id)
-  const bodyData = {date, name, entry_content, category_id}
+  const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4}
 
   fetch(endPoint, {
     method: "POST",
@@ -84,10 +99,13 @@ function postFetchDay(date, name, entry_content, category_id) {
   })
   .then(response => response.json())
   .then(day => {
+    console.log(day)
     const dayData = day.data
     renderNewDay(dayData)
     const entryData = day.included
-    renderNewEntry(entryData)
+    for (let i = 0; i < entryData.length; i++) {
+      renderNewEntry(entryData[i], `${i}`)
+    }
   }
 )}
 
@@ -102,7 +120,7 @@ function postFetchDay(date, name, entry_content, category_id) {
 
 
 function renderNewDay(day) {
-  console.log(day)
+  //console.log(day)
   const p1 = document.querySelector('p1')
     p1.innerText = `${day.attributes.name}`
   const p2 = document.querySelector('p2')
@@ -112,12 +130,13 @@ function renderNewDay(day) {
 
 
 
-function renderNewEntry(entry) {
-  console.log(entry)
+function renderNewEntry(entry, i) {
+  console.log(i)
+
   //debugger;
-    const h2 = document.querySelector('h2')
-    h2.innerText = `${entry[0].attributes.content}`
-    const h3 = document.querySelector('h3')
-    h3.innerText = `${entry[0].attributes.category.name}`
+    const h2 = document.getElementById(i)
+    h2.innerText = `${entry.attributes.content}`
+    const h3 = h2.nextSibling
+    h3.innerText = `${entry.attributes.category.name}`
 
 }
