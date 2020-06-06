@@ -11,14 +11,29 @@ function getDays() {
   fetch(endPoint)
     .then(res => res.json())
     .then(days => {
-      //console.log(days)
+      //debugger;
+      console.log(days)
+      //debugger;
       const daysData = days.data
       daysData.forEach(day =>
         renderDay(day))
       const daysEntries = days.included
-      for (let i = 0; i < daysEntries.length; i++) {
-        renderEntry(daysEntries[i], `${i}`)
+      if (daysEntries.length > 4) {
+        const daysImage = daysEntries.pop()
+        for (let i = 0; i < daysEntries.length; i++) {
+          renderEntry(daysEntries[i], `${i}`)
+        }
+        renderImage(daysImage)
+
+      } else {
+        for (let i = 0; i < daysEntries.length; i++) {
+          renderEntry(daysEntries[i], `${i}`)
+        }
+
       }
+
+
+
 
       //renderEntries(daysEntries)
       //debugger;
@@ -45,7 +60,9 @@ function createFormHandler(e) {
   const entryInput4 = document.querySelector('#entry-input-4').value
   const categoryInput4 = document.querySelector('#categories-4').value
   const categoryId4 = parseInt(categoryInput4)
-  postFetchDay(dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4)
+  const imageInput = document.querySelector('#input-url').value
+  const imageCaption = document.querySelector('#input-caption').value
+  postFetchDay(dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4, imageInput, imageCaption)
 }
 
 
@@ -65,29 +82,48 @@ function renderDay(day) {
 }
 //relBtn.setAttribute('id', `${object.id}-rel`)
 function renderEntry(entry, i) {
-  console.log(entry)
+  //console.log(entry)
   let entriesCollection = document.getElementById("entries-container")
 
   const div = document.createElement('div')
   div.className = 'card'
   div.setAttribute("included-id", i)
-  const h2 = document.createElement('h2')
-  h2.setAttribute('id', i)
-  //debugger;
-  h2.innerText = `${entry.attributes.content}`
   const h3 = document.createElement('h3')
   h3.setAttribute('id', i)
   h3.innerText = `${entry.attributes.category.name}`
-  //div.append(h2,h3)
+
+  const h2 = document.createElement('h2')
+  h2.setAttribute('id', i)
+
+  h2.innerText = `${entry.attributes.content}`
+
   entriesCollection.append(h2, h3)
 
 
 }
 
+function renderImage(image) {
+
+  let imageContainer = document.getElementById("image-container")
+  const div = document.createElement('div')
+  div.className = 'card'
+  let img = document.createElement('img')
+
+  img.src = `${image.attributes.url}`
+  const p3 = document.createElement('p3')
+  p3.innerText = `${image.attributes.caption}`
+  div.append(img, p3)
+  imageContainer.appendChild(div)
+  //<img src=${image.attributes.url} height="200" width="250">
+  //const p = document.createElement('p')
+  //p.innerText = `${image.attributes.caption}`
+  //imageContainer.append(img, p)
+}
+
 //entries_attributes: [:id, :content, :day_id, :category_id])
-function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4) {
+function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, input_url, input_caption) {
   //console.log(date, name, entry_content, category_id)
-  const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4}
+  const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, input_url, input_caption}
 
   fetch(endPoint, {
     method: "POST",
@@ -98,14 +134,31 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
     body: JSON.stringify(bodyData)
   })
   .then(response => response.json())
+
   .then(day => {
-    console.log(day)
-    const dayData = day.data
-    renderNewDay(dayData)
-    const entryData = day.included
-    for (let i = 0; i < entryData.length; i++) {
-      renderNewEntry(entryData[i], `${i}`)
+    //console.log(day)
+    const newDayData = day.data
+    //console.log(day.data)
+    renderNewDay(newDayData)
+    const newEntriesData = day.included
+    if (newEntriesData.length > 4) {
+      const newDaysImage = newEntriesData.pop()
+      for (let i = 0; i < newEntriesData.length; i++) {
+        renderNewEntry(newEntriesData[i], `${i}`)
+      }
+      renderNewImage(newDaysImage)
+
+    } else {
+      for (let i = 0; i < newEntriesData.length; i++) {
+        renderNewEntry(newEntriesData[i], `${i}`)
+      }
+
     }
+    //const imageData = entryData.pop()
+    //console.log(entryData)
+    //console.log(imageData)
+
+    //renderNewImage(imageData)
   }
 )}
 
@@ -131,12 +184,24 @@ function renderNewDay(day) {
 
 
 function renderNewEntry(entry, i) {
-  console.log(i)
+  //console.log(i)
 
   //debugger;
     const h2 = document.getElementById(i)
-    h2.innerText = `${entry.attributes.content}`
+    h2.innerText = `${entry.attributes.category.name}`
     const h3 = h2.nextSibling
-    h3.innerText = `${entry.attributes.category.name}`
+    h3.innerText = `${entry.attributes.content}`
 
+}
+
+function renderNewImage(image) {
+
+  let img = document.querySelector('img')
+  img.src = `${image.attributes.url}`
+  const p3 = document.querySelector('p3')
+    p3.innerText = `${image.attributes.caption}`
+  //<img src=${image.attributes.url} height="200" width="250">
+  //const p = document.createElement('p')
+  //p.innerText = `${image.attributes.caption}`
+  //imageContainer.append(img, p)
 }
