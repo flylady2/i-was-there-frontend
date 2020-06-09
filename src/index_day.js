@@ -82,22 +82,31 @@ function renderDay(day) {
 }
 //relBtn.setAttribute('id', `${object.id}-rel`)
 function renderEntry(entry, i) {
-  //console.log(entry)
+  console.log(entry)
   let entriesCollection = document.getElementById("entries-container")
 
   const div = document.createElement('div')
   div.className = 'card'
-  div.setAttribute("included-id", i)
+  div.setAttribute('id', `${entry.id}`)
   const h3 = document.createElement('h3')
   h3.setAttribute('id', i)
+
   h3.innerText = `${entry.attributes.category.name}`
 
   const h2 = document.createElement('h2')
   h2.setAttribute('id', i)
+  h2.contentEditable = true
 
   h2.innerText = `${entry.attributes.content}`
-
-  entriesCollection.append(h2, h3)
+  let editBtn = document.createElement('button')
+  editBtn.setAttribute('id', `${entry.id}`)
+  editBtn.className = 'editBtn'
+  editBtn.textContent = 'Edit'
+  editBtn.addEventListener("click", event => {
+    event.preventDefault()
+    editEntry(`${entry.id}`)
+  })
+  entriesCollection.append(div, h2, h3, editBtn)
 
 
 }
@@ -204,4 +213,23 @@ function renderNewImage(image) {
   //const p = document.createElement('p')
   //p.innerText = `${image.attributes.caption}`
   //imageContainer.append(img, p)
+}
+
+function editEntry(id) {
+  let div = document.getElementById(id)
+  let h2 = div.nextSibling
+  const newContent = h2.nextSibling.innerText
+  const editData = {id, newContent}
+  fetch("http://localhost:3000/api/v1/entries/`{$id}`", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(editData)
+  })
+  .then(response => response.json())
+    .then(entry => {
+      renderEditedEntry(entry)
+  })
 }
