@@ -12,7 +12,7 @@ function getDays() {
     .then(res => res.json())
     .then(days => {
       //debugger;
-      console.log(days)
+      //console.log(days)
       //debugger;
       const daysData = days.data
       daysData.forEach(day =>
@@ -95,18 +95,24 @@ function renderEntry(entry, i) {
 
   const h2 = document.createElement('h2')
   h2.setAttribute('id', i)
-  h2.contentEditable = true
+
 
   h2.innerText = `${entry.attributes.content}`
+
+  //debugger;
   let editBtn = document.createElement('button')
   editBtn.setAttribute('id', `${entry.id}`)
   editBtn.className = 'editBtn'
   editBtn.textContent = 'Edit'
+  div.append(h3, h2, editBtn)
+  entriesCollection.appendChild(div)
   editBtn.addEventListener("click", event => {
     event.preventDefault()
-    editEntry(`${entry.id}`)
+    console.log('clicked')
+    editableEntry(event)
+    //debugger;
   })
-  entriesCollection.append(div, h2, h3, editBtn)
+
 
 
 }
@@ -215,13 +221,39 @@ function renderNewImage(image) {
   //imageContainer.append(img, p)
 }
 
-function editEntry(id) {
-  let div = document.getElementById(id)
-  let h2 = div.nextSibling
-  const newContent = h2.nextSibling.innerText
+function editableEntry(event) {
+  console.log('here')
+  //debugger;
+  let div = document.getElementById(event.target.id)
+  let h3 = div.firstChild
+  let h2 = h3.nextSibling
+  h2.contentEditable = true
+
+  let submitBtn = document.createElement('button')
+  submitBtn.setAttribute('id', `${event.target.id}`)
+  submitBtn.className = 'submitBtn'
+  submitBtn.textContent = 'Submit'
+  div.append(submitBtn)
+  //debugger;
+  submitBtn.addEventListener("click", event_two => {
+    event_two.preventDefault()
+    console.log('submitted')
+    editEntry(event_two.target.id, h2)
+    //debugger;
+  })
+  //editEntry()
+    //editEntry(id)
+}
+
+function editEntry(id, h2) {
+  //debugger;
+  //let div = document.getElementById(id)
+  //let h2 = div.nextSibling
+  //h2.contentEditable = true
+  const newContent = h2.innerText
   const editData = {id, newContent}
-  fetch("http://localhost:3000/api/v1/entries/`{$id}`", {
-    method: "POST",
+  fetch(`http://localhost:3000/api/v1/entries/${id}`, {
+    method: "PATCH",
     headers: {
       "Content-type": "application/json",
       "Accept": "application/json"
@@ -230,6 +262,11 @@ function editEntry(id) {
   })
   .then(response => response.json())
     .then(entry => {
-      renderEditedEntry(entry)
+      console.log(entry)
+      //renderEditedEntry(entry)
   })
+}
+
+function renderEditedEntry(entry) {
+  console.log(entry)
 }
