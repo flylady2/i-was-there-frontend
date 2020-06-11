@@ -100,18 +100,18 @@ function renderEntry(entry, i) {
   h2.innerText = `${entry.attributes.content}`
 
   //debugger;
-  let editBtn = document.createElement('button')
-  editBtn.setAttribute('id', `${entry.id}`)
-  editBtn.className = 'editBtn'
-  editBtn.textContent = 'Edit'
-  div.append(h3, h2, editBtn)
+  //let editBtn = document.createElement('button')
+  //editBtn.setAttribute('id', `${entry.id}`)
+  //editBtn.className = 'editBtn'
+  //editBtn.textContent = 'Edit'
+  div.append(h3, h2)
   entriesCollection.appendChild(div)
-  editBtn.addEventListener("click", event => {
-    event.preventDefault()
-    console.log('clicked')
-    editableEntry(event)
+  //editBtn.addEventListener("click", event => {
+  //  event.preventDefault()
+  //  console.log('clicked')
+  //  editableEntry(event)
     //debugger;
-  })
+  //})
 
 
 
@@ -199,13 +199,34 @@ function renderNewDay(day) {
 
 
 function renderNewEntry(entry, i) {
-  //console.log(i)
+  let entriesCollection = document.getElementById("entries-container")
+
+  const div = document.createElement('div')
+  div.className = 'card'
+  div.setAttribute('id', `${entry.id}`)//console.log(i)
 
   //debugger;
-    const h2 = document.getElementById(i)
-    h2.innerText = `${entry.attributes.category.name}`
-    const h3 = h2.nextSibling
-    h3.innerText = `${entry.attributes.content}`
+  const h3 = document.getElementById(i)
+  h3.innerText = `${entry.attributes.category.name}`
+  const h2 = h3.nextSibling
+  h2.innerText = `${entry.attributes.content}`
+
+
+
+
+
+  let editBtn = document.createElement('button')
+  editBtn.setAttribute('id', `${entry.id}`)
+  editBtn.className = 'editBtn'
+  editBtn.textContent = 'Edit'
+  div.append(h3, h2, editBtn)
+  entriesCollection.appendChild(div)
+  editBtn.addEventListener("click", event => {
+    event.preventDefault()
+    console.log('clicked')
+    editableEntry(event)
+      //debugger;
+    })
 
 }
 
@@ -228,6 +249,7 @@ function editableEntry(event) {
   let h3 = div.firstChild
   let h2 = h3.nextSibling
   h2.contentEditable = true
+  //debugger;
 
   let submitBtn = document.createElement('button')
   submitBtn.setAttribute('id', `${event.target.id}`)
