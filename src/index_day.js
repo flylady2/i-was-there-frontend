@@ -262,11 +262,16 @@ function editEntry(id, h2) {
   })
   .then(response => response.json())
     .then(entry => {
-      console.log(entry)
-      //renderEditedEntry(entry)
+      //console.log(entry)
+      renderEditedEntry(entry)
   })
 }
 
 function renderEditedEntry(entry) {
-  console.log(entry)
+  let entryData = entry.data
+  let div = document.getElementById(entryData.id)
+  let h3 = div.firstChild
+  let h2 = h3.nextSibling
+  h2.innerText = entryData.attributes.content
+  //console.log(entry)
 }
