@@ -15,8 +15,12 @@ function getDays() {
       //console.log(days)
       //debugger;
       const daysData = days.data
-      daysData.forEach(day =>
-        renderDay(day))
+      daysData.forEach(day => {
+        console.log(day)
+        //debugger;
+        let newDay = new Day(day)
+      })
+        //renderDay(day))
       const daysEntries = days.included
       if (daysEntries.length > 4) {
         const daysImage = daysEntries.pop()
@@ -67,19 +71,6 @@ function createFormHandler(e) {
 
 
 
-function renderDay(day) {
-  let daysCollection = document.getElementById("days-container")
-  //debugger;
-  const div = document.createElement('div')
-    div.className = 'card'
-    div.setAttribute("data-id", `${day.id}`)
-  const p1 = document.createElement('p1')
-    p1.innerText = `${day.attributes.name}`
-  const p2 = document.createElement('p2')
-    p2.innerText = `${day.attributes.date}`
-    div.append(p1, p2)
-    daysCollection.appendChild(div)
-}
 //relBtn.setAttribute('id', `${object.id}-rel`)
 function renderEntry(entry, i) {
   console.log(entry)
