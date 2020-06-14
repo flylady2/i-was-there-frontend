@@ -18,23 +18,23 @@ function getDays() {
       daysData.forEach(day => {
         console.log(day)
         //debugger;
-        let lastDay = new Day(day)
+        let lastDay = new Day(day).renderDay()
       })
         //renderDay(day))
       const daysEntries = days.included
-      debugger;
+      //debugger;
       if (daysEntries.length > 4) {
         const image = daysEntries.pop()
-        debugger;
+        //debugger;
         for (let i = 0; i < daysEntries.length; i++) {
-          renderEntry(daysEntries[i], `${i}`)
+          let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
         }
         //renderImage(daysImage)
-        let lastDaysImage = new Image(image)
-        debugger;
+        let lastDaysImage = new Image(image).renderImage()
+        //debugger;
       } else {
         for (let i = 0; i < daysEntries.length; i++) {
-          renderEntry(daysEntries[i], `${i}`)
+          let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
         }
 
       }
@@ -75,41 +75,7 @@ function createFormHandler(e) {
 
 
 //relBtn.setAttribute('id', `${object.id}-rel`)
-function renderEntry(entry, i) {
-  console.log(entry)
-  let entriesCollection = document.getElementById("entries-container")
 
-  const div = document.createElement('div')
-  div.className = 'card'
-  div.setAttribute('id', `${entry.id}`)
-  const h3 = document.createElement('h3')
-  h3.setAttribute('id', i)
-
-  h3.innerText = `${entry.attributes.category.name}`
-
-  const h2 = document.createElement('h2')
-  h2.setAttribute('id', i)
-
-
-  h2.innerText = `${entry.attributes.content}`
-
-  //debugger;
-  //let editBtn = document.createElement('button')
-  //editBtn.setAttribute('id', `${entry.id}`)
-  //editBtn.className = 'editBtn'
-  //editBtn.textContent = 'Edit'
-  div.append(h3, h2)
-  entriesCollection.appendChild(div)
-  //editBtn.addEventListener("click", event => {
-  //  event.preventDefault()
-  //  console.log('clicked')
-  //  editableEntry(event)
-    //debugger;
-  //})
-
-
-
-}
 
 
 
@@ -132,19 +98,19 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
     //console.log(day)
     const newDayData = day.data
     //console.log(day.data)
-    let newDay = new Day(newDayData)
+    let newDay = new Day(newDayData).renderNewDay()
     //renderNewDay(newDayData)
     const newEntriesData = day.included
     if (newEntriesData.length > 4) {
-      const newDaysImage = newEntriesData.pop()
+      const image = newEntriesData.pop()
       for (let i = 0; i < newEntriesData.length; i++) {
-        renderNewEntry(newEntriesData[i], `${i}`)
+        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
       }
-      renderNewImage(newDaysImage)
+      let newDaysImage = new Image(image).renderNewImage()
 
     } else {
       for (let i = 0; i < newEntriesData.length; i++) {
-        renderNewEntry(newEntriesData[i], `${i}`)
+        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
       }
 
     }
@@ -166,113 +132,58 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
 
 
 
-function renderNewDay(day) {
-  //console.log(day)
-  const p1 = document.querySelector('p1')
-    p1.innerText = `${day.attributes.name}`
-  const p2 = document.querySelector('p2')
-    p2.innerText = `${day.attributes.date}`
+        function editableEntry(event) {
+          console.log('here')
+          //debugger;
+          let div = document.getElementById(event.target.id)
+          let h3 = div.firstChild
+          let h2 = h3.nextSibling
+          h2.contentEditable = true
+          //debugger;
 
-}
+          let submitBtn = document.createElement('button')
+          submitBtn.setAttribute('id', `${event.target.id}`)
+          submitBtn.className = 'submitBtn'
+          submitBtn.textContent = 'Submit'
+          div.append(submitBtn)
+          //debugger;
+          submitBtn.addEventListener("click", event_two => {
+            event_two.preventDefault()
+            console.log('submitted')
+            editEntry(event_two.target.id, h2)
+            //debugger;
+          })
+        }
+
+      function editEntry(id, h2) {
+        //debugger;
+        //let div = document.getElementById(id)
+        //let h2 = div.nextSibling
+        //h2.contentEditable = true
+        const newContent = h2.innerText
+        const editData = {id, newContent}
+        fetch(`http://localhost:3000/api/v1/entries/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(editData)
+        })
+        .then(response => response.json())
+          .then(entry => {
+            console.log(entry)
+            renderEditedEntry(entry)
+        })
+      }
 
 
-
-function renderNewEntry(entry, i) {
-  let entriesCollection = document.getElementById("entries-container")
-
-  const div = document.createElement('div')
-  div.className = 'card'
-  div.setAttribute('id', `${entry.id}`)//console.log(i)
-
-  //debugger;
-  const h3 = document.getElementById(i)
-  h3.innerText = `${entry.attributes.category.name}`
-  const h2 = h3.nextSibling
-  h2.innerText = `${entry.attributes.content}`
-
-
-
-
-
-  let editBtn = document.createElement('button')
-  editBtn.setAttribute('id', `${entry.id}`)
-  editBtn.className = 'editBtn'
-  editBtn.textContent = 'Edit'
-  div.append(h3, h2, editBtn)
-  entriesCollection.appendChild(div)
-  editBtn.addEventListener("click", event => {
-    event.preventDefault()
-    console.log('clicked')
-    editableEntry(event)
-      //debugger;
-    })
-
-}
-
-function renderNewImage(image) {
-
-  let img = document.querySelector('img')
-  img.src = `${image.attributes.url}`
-  const p3 = document.querySelector('p3')
-    p3.innerText = `${image.attributes.caption}`
-  //<img src=${image.attributes.url} height="200" width="250">
-  //const p = document.createElement('p')
-  //p.innerText = `${image.attributes.caption}`
-  //imageContainer.append(img, p)
-}
-
-function editableEntry(event) {
-  console.log('here')
-  //debugger;
-  let div = document.getElementById(event.target.id)
-  let h3 = div.firstChild
-  let h2 = h3.nextSibling
-  h2.contentEditable = true
-  //debugger;
-
-  let submitBtn = document.createElement('button')
-  submitBtn.setAttribute('id', `${event.target.id}`)
-  submitBtn.className = 'submitBtn'
-  submitBtn.textContent = 'Submit'
-  div.append(submitBtn)
-  //debugger;
-  submitBtn.addEventListener("click", event_two => {
-    event_two.preventDefault()
-    console.log('submitted')
-    editEntry(event_two.target.id, h2)
-    //debugger;
-  })
-  //editEntry()
-    //editEntry(id)
-}
-
-function editEntry(id, h2) {
-  //debugger;
-  //let div = document.getElementById(id)
-  //let h2 = div.nextSibling
-  //h2.contentEditable = true
-  const newContent = h2.innerText
-  const editData = {id, newContent}
-  fetch(`http://localhost:3000/api/v1/entries/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify(editData)
-  })
-  .then(response => response.json())
-    .then(entry => {
-      //console.log(entry)
-      renderEditedEntry(entry)
-  })
-}
-
-function renderEditedEntry(entry) {
-  let entryData = entry.data
-  let div = document.getElementById(entryData.id)
-  let h3 = div.firstChild
-  let h2 = h3.nextSibling
-  h2.innerText = entryData.attributes.content
-  //console.log(entry)
-}
+        function renderEditedEntry(entry) {
+          let entryData = entry.data
+          console.log(entryData)
+          let div = document.getElementById(entryData.id)
+          let h3 = div.firstChild
+          let h2 = h3.nextSibling
+          h2.innerText = entryData.attributes.content
+          //console.log(entry)
+        }

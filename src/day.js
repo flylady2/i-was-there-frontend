@@ -5,7 +5,7 @@ class Day {
     this.id = day.id
     this.name = day.attributes.name
     this.date = day.attributes.date
-    this.renderDay()
+
     //debugger;
 
   }
@@ -25,6 +25,16 @@ class Day {
     p2.innerText = `${this.date}`
     div.append(p1, p2)
     daysCollection.appendChild(div)
+  }
+
+
+  renderNewDay() {
+    //console.log(day)
+    const p1 = document.querySelector('p1')
+      p1.innerText = `${this.name}`
+    const p2 = document.querySelector('p2')
+      p2.innerText = `${this.date}`
+
   }
 
 }

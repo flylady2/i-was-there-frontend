@@ -1,11 +1,11 @@
 class Image {
 
   constructor(image) {
-    debugger;
+    //debugger;
     this.id = image.id
     this.url = image.attributes.url
     this.caption = image.attributes.caption
-    this.renderImage()
+    //this.renderImage()
 
   }
 
@@ -22,6 +22,18 @@ class Image {
     p3.innerText = `${this.caption}`
     div.append(img, p3)
     imageContainer.appendChild(div)
+    //<img src=${image.attributes.url} height="200" width="250">
+    //const p = document.createElement('p')
+    //p.innerText = `${image.attributes.caption}`
+    //imageContainer.append(img, p)
+  }
+
+  renderNewImage() {
+
+    let img = document.querySelector('img')
+    img.src = `${this.url}`
+    const p3 = document.querySelector('p3')
+    p3.innerText = `${this.caption}`
     //<img src=${image.attributes.url} height="200" width="250">
     //const p = document.createElement('p')
     //p.innerText = `${image.attributes.caption}`
