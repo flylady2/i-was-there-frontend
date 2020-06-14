@@ -74,16 +74,7 @@ class Entry {
 
     //editEntry()
       //editEntry(id)
-  
 
-  renderEditedEntry() {
-    //let entryData = this.data
-    let div = document.getElementById(this.id)
-    let h3 = div.firstChild
-    let h2 = h3.nextSibling
-    h2.innerText = this.content
-    //console.log(entry)
-  }
 
 
 }
