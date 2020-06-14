@@ -18,17 +18,20 @@ function getDays() {
       daysData.forEach(day => {
         console.log(day)
         //debugger;
-        let newDay = new Day(day)
+        let lastDay = new Day(day)
       })
         //renderDay(day))
       const daysEntries = days.included
+      debugger;
       if (daysEntries.length > 4) {
-        const daysImage = daysEntries.pop()
+        const image = daysEntries.pop()
+        debugger;
         for (let i = 0; i < daysEntries.length; i++) {
           renderEntry(daysEntries[i], `${i}`)
         }
-        renderImage(daysImage)
-
+        //renderImage(daysImage)
+        let lastDaysImage = new Image(image)
+        debugger;
       } else {
         for (let i = 0; i < daysEntries.length; i++) {
           renderEntry(daysEntries[i], `${i}`)
@@ -108,23 +111,7 @@ function renderEntry(entry, i) {
 
 }
 
-function renderImage(image) {
 
-  let imageContainer = document.getElementById("image-container")
-  const div = document.createElement('div')
-  div.className = 'card'
-  let img = document.createElement('img')
-
-  img.src = `${image.attributes.url}`
-  const p3 = document.createElement('p3')
-  p3.innerText = `${image.attributes.caption}`
-  div.append(img, p3)
-  imageContainer.appendChild(div)
-  //<img src=${image.attributes.url} height="200" width="250">
-  //const p = document.createElement('p')
-  //p.innerText = `${image.attributes.caption}`
-  //imageContainer.append(img, p)
-}
 
 //entries_attributes: [:id, :content, :day_id, :category_id])
 function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, input_url, input_caption) {
@@ -145,7 +132,8 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
     //console.log(day)
     const newDayData = day.data
     //console.log(day.data)
-    renderNewDay(newDayData)
+    let newDay = new Day(newDayData)
+    //renderNewDay(newDayData)
     const newEntriesData = day.included
     if (newEntriesData.length > 4) {
       const newDaysImage = newEntriesData.pop()
