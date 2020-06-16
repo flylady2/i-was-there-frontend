@@ -1,8 +1,32 @@
+let addDay = false
 const endPoint = "http://localhost:3000/api/v1/days";
+
+//debugger;
+
 document.addEventListener('DOMContentLoaded', () => {
+  const addBtn = document.querySelector('#new-day-btn')
+  const createDayForm = document.querySelector('.form-container')
+  createDayForm.style.display = 'none'
+  //debugger;
   getDays()
-  const createDayForm = document.querySelector('#create-day-form')
-  createDayForm.addEventListener("submit", (e) => createFormHandler(e))
+  addBtn.addEventListener('click', () => {
+    console.log('clicked')
+    //debugger;
+    addDay = !addDay
+    //debugger;
+    if (addDay) {
+      createDayForm.style.display = 'block'
+      createDayForm.addEventListener("submit", (e) => {
+        e.preventDefault()
+        createFormHandler(e)
+      })
+
+    } else {
+      createDayForm.style.display = 'none'
+    }
+  })
+
+
   //let createEntryForm = document.querySelector('#create-entry-form')
   //createEntryForm.addEventListener('submit', (e) => createFormHandler(e))
 });
@@ -39,20 +63,14 @@ function getDays() {
 
       }
 
-
-
-
-      //renderEntries(daysEntries)
-      //debugger;
-      //daysEntries.forEach(entry =>
-        //renderEntry(entry))
       })
+
 }
 
 function createFormHandler(e) {
   e.preventDefault()
   console.log('submitted')
-  //debugger;
+
   const dateInput = document.querySelector('#day-date').value
   const nameInput = document.querySelector('#input-name').value
   const entryInput1 = document.querySelector('#entry-input-1').value
@@ -73,16 +91,11 @@ function createFormHandler(e) {
 }
 
 
-
-//relBtn.setAttribute('id', `${object.id}-rel`)
-
-
-
-
-//entries_attributes: [:id, :content, :day_id, :category_id])
 function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, input_url, input_caption) {
   //console.log(date, name, entry_content, category_id)
   const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, input_url, input_caption}
+  const createDayForm = document.querySelector('.form-container')
+  createDayForm.style.display = 'none'
 
   fetch(endPoint, {
     method: "POST",
@@ -114,21 +127,11 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
       }
 
     }
-    //const imageData = entryData.pop()
-    //console.log(entryData)
-    //console.log(imageData)
 
-    //renderNewImage(imageData)
   }
-)}
+)
 
-    //const dayData = day.data
-    //console.log(dayData)
-    //renderNewDay(dayData)
-    //const entriesData = day.included
-    //console.log(entriesData)
-    //entriesData.forEach(entry =>
-      //renderNewEntry(entry))
+}
 
 
 
@@ -181,9 +184,12 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
         function renderEditedEntry(entry) {
           let entryData = entry.data
           console.log(entryData)
+          let submitBtn = document.querySelector('.submitBtn')
+          submitBtn.remove()
           let div = document.getElementById(entryData.id)
           let h3 = div.firstChild
           let h2 = h3.nextSibling
           h2.innerText = entryData.attributes.content
+          h2.contentEditable = false
           //console.log(entry)
         }
