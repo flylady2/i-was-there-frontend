@@ -25,6 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
       createDayForm.style.display = 'none'
     }
   })
+  //const searchBtn = document.querySelector('#search-button')
+
+  //searchBtn.addEventListener('submit', (e) => {
+  //  e.preventDefault()
+  //  console.log('search click')
+  //  searchFormHandler(e)
+  //  debugger;
+  //})
 
 
   //let createEntryForm = document.querySelector('#create-entry-form')
@@ -73,7 +81,9 @@ function createFormHandler(e) {
 
   const dateInput = document.querySelector('#day-date').value
   const nameInput = document.querySelector('#input-name').value
-  const entryInput1 = document.querySelector('#entry-input-1').value
+  //debugger;
+  const entryInput1 = document.getElementById('entry-input-1').value
+  //const entryInput1 = document.querySelector('#entry-input-1').value
   const categoryInput1 = document.querySelector('#categories-1').value
   const categoryId1 = parseInt(categoryInput1)
   const entryInput2 = document.querySelector('#entry-input-2').value
@@ -106,13 +116,9 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
     body: JSON.stringify(bodyData)
   })
   .then(response => response.json())
-
   .then(day => {
-    //console.log(day)
     const newDayData = day.data
-    //console.log(day.data)
     let newDay = new Day(newDayData).renderNewDay()
-    //renderNewDay(newDayData)
     const newEntriesData = day.included
     if (newEntriesData.length > 4) {
       const image = newEntriesData.pop()
@@ -133,63 +139,87 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
 
 }
 
+function searchFormHandler(e) {
+  e.preventDefault()
+
+  const searchInput = document.querySelector('#search-date').value
+  searchDayFetch(searchInput)
+  console.log('searching')
+}
+
+function searchDayFetch(date) {
+  fetch("http://localhost:3000/api/v1/days/find", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(date)
+  })
+  .then(response => response.json())
+  .then(day => {
+    console.log(day)
+  })
+}
 
 
-        function editableEntry(event) {
-          console.log('here')
-          //debugger;
-          let div = document.getElementById(event.target.id)
-          let h3 = div.firstChild
-          let h2 = h3.nextSibling
-          h2.contentEditable = true
-          //debugger;
 
-          let submitBtn = document.createElement('button')
-          submitBtn.setAttribute('id', `${event.target.id}`)
-          submitBtn.className = 'submitBtn'
-          submitBtn.textContent = 'Submit'
-          div.append(submitBtn)
-          //debugger;
-          submitBtn.addEventListener("click", event_two => {
-            event_two.preventDefault()
-            console.log('submitted')
-            editEntry(event_two.target.id, h2)
+
+  function editableEntry(event) {
+    //console.log('here')
+    //debugger;
+    let div = document.getElementById(event.target.id)
+    let h3 = div.firstChild
+    let h2 = h3.nextSibling
+    h2.contentEditable = true
+    //debugger;
+
+    let submitBtn = document.createElement('button')
+    submitBtn.setAttribute('id', `${event.target.id}`)
+    submitBtn.className = 'submitBtn'
+    submitBtn.textContent = 'Submit'
+    div.append(submitBtn)
+    //debugger;
+    submitBtn.addEventListener("click", event_two => {
+      event_two.preventDefault()
+      console.log('submitted')
+      editEntry(event_two.target.id, h2)
             //debugger;
-          })
-        }
+    })
+  }
 
-      function editEntry(id, h2) {
-        //debugger;
-        //let div = document.getElementById(id)
-        //let h2 = div.nextSibling
-        //h2.contentEditable = true
-        const newContent = h2.innerText
-        const editData = {id, newContent}
-        fetch(`http://localhost:3000/api/v1/entries/${id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify(editData)
-        })
-        .then(response => response.json())
-          .then(entry => {
-            console.log(entry)
-            renderEditedEntry(entry)
-        })
-      }
+  function editEntry(id, h2) {
+    //debugger;
+    //let div = document.getElementById(id)
+    //let h2 = div.nextSibling
+    //h2.contentEditable = true
+    const newContent = h2.innerText
+    const editData = {id, newContent}
+    fetch(`http://localhost:3000/api/v1/entries/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(editData)
+    })
+    .then(response => response.json())
+      .then(entry => {
+        console.log(entry)
+        renderEditedEntry(entry)
+    })
+  }
 
 
-        function renderEditedEntry(entry) {
-          let entryData = entry.data
-          console.log(entryData)
-          let submitBtn = document.querySelector('.submitBtn')
-          submitBtn.remove()
-          let div = document.getElementById(entryData.id)
-          let h3 = div.firstChild
-          let h2 = h3.nextSibling
-          h2.innerText = entryData.attributes.content
-          h2.contentEditable = false
-          //console.log(entry)
-        }
+  function renderEditedEntry(entry) {
+    let entryData = entry.data
+    console.log(entryData)
+    let submitBtn = document.querySelector('.submitBtn')
+    submitBtn.remove()
+    let div = document.getElementById(entryData.id)
+    let h3 = div.firstChild
+    let h2 = h3.nextSibling
+    h2.innerText = entryData.attributes.content
+    h2.contentEditable = false
+    //console.log(entry)
+  }
