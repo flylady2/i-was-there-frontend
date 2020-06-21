@@ -5,18 +5,30 @@ const endPoint = "http://localhost:3000/api/v1/days";
 
 document.addEventListener('DOMContentLoaded', () => {
   const addBtn = document.querySelector('#new-day-btn')
+  const searchForm = document.querySelector('.search-form-container')
+  searchForm.addEventListener('submit', (e) => {
+    //debugger;
+    e.preventDefault()
+    console.log('search form')
+    //console.log('search clicked')
+    searchFormHandler(e)
+   //debugger;
+  })
+
+
   const createDayForm = document.querySelector('.form-container')
   createDayForm.style.display = 'none'
   //debugger;
   getDays()
   addBtn.addEventListener('click', () => {
-    console.log('clicked')
+    //console.log('clicked')
     //debugger;
     addDay = !addDay
     //debugger;
     if (addDay) {
       createDayForm.style.display = 'block'
       createDayForm.addEventListener("submit", (e) => {
+        console.log('add day')
         e.preventDefault()
         createFormHandler(e)
       })
@@ -27,12 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   //const searchBtn = document.querySelector('#search-button')
 
-  //searchBtn.addEventListener('submit', (e) => {
-  //  e.preventDefault()
-  //  console.log('search click')
-  //  searchFormHandler(e)
-  //  debugger;
-  //})
 
 
   //let createEntryForm = document.querySelector('#create-entry-form')
@@ -48,7 +54,7 @@ function getDays() {
       //debugger;
       const daysData = days.data
       daysData.forEach(day => {
-        console.log(day)
+        //console.log(day)
         //debugger;
         let lastDay = new Day(day).renderDay()
       })
@@ -77,7 +83,7 @@ function getDays() {
 
 function createFormHandler(e) {
   e.preventDefault()
-  console.log('submitted')
+  //console.log('submitted')
 
   const dateInput = document.querySelector('#day-date').value
   const nameInput = document.querySelector('#input-name').value
@@ -140,26 +146,40 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
 }
 
 function searchFormHandler(e) {
-  e.preventDefault()
-
+  //e.preventDefault()
+  console.log('search clicked')
   const searchInput = document.querySelector('#search-date').value
+  //debugger;
   searchDayFetch(searchInput)
-  console.log('searching')
+  //console.log(searchInput)
 }
 
-function searchDayFetch(date) {
-  fetch("http://localhost:3000/api/v1/days/find", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify(date)
-  })
+function searchDayFetch(searchInput) {
+  //console.log(date)
+  fetch(`http://localhost:3000/api/v1/days?date=${searchInput}`)
+
   .then(response => response.json())
   .then(day => {
-    console.log(day)
-  })
+    const newDayData = day.data
+    let newDay = new Day(newDayData).renderNewDay()
+    const newEntriesData = day.included
+    if (newEntriesData.length > 4) {
+      const image = newEntriesData.pop()
+      for (let i = 0; i < newEntriesData.length; i++) {
+        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
+      }
+      let newDaysImage = new Image(image).renderNewImage()
+
+    } else {
+      for (let i = 0; i < newEntriesData.length; i++) {
+        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
+      }
+
+    }
+
+  }
+)
+
 }
 
 
