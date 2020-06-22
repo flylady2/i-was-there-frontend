@@ -2,6 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+
+    <script type="application/javascript" src="src/image.js" charset="UTF-8"></script>
+    <script type="application/javascript" src="src/entry.js" charset="UTF-8"></script>
+    <script type="application/javascript" src="src/day.js" charset="UTF-8"></script>
+
     <script type="application/javascript" src="src/index_day.js" charset="UTF-8"></script>
     <title>I Was There</title>
   </head>
@@ -16,6 +21,19 @@
       <div id="entries-container">
       </div>
       <br><br>
+      <br><br>
+
+      <div class="search-form-container">
+        <form id="search-day-form" style="">
+          <h3>Find a Day</h3>
+          <label class="nativeDatePicker">Date:</label>
+          <input type="date" id="search-date" name="search-date">
+          <input id='search-button' type="submit" name="submit" value="Search for a day" class="submit">
+        </form>
+      </div>
+
+      <br><br>
+      <br><br>
 
     <div class="form-container">
       <form id="create-day-form" style="">
@@ -26,6 +44,8 @@
         <br><br>
         <input id='input-url' type="text" name="image" value="" placeholder="Image of the day" class="input=text">
         <input id='input-caption' type="text" name="caption" value="" placeholder="About the image" class="input-text">
+        <!--<label for="caption">Caption:</label>
+        <textarea id="caption" name="caption"></textarea>-->
         <br><br>
 
 
@@ -35,8 +55,8 @@
           <option value="3">3 things</option>
           <option value="4">1000 words</option>
         </select>
-
-        <input id='entry-input-1' type="text" name="content"  value=""  placeholder="Put your entry here." class="input-text">
+        <textarea id="entry-input-1" name="content"></textarea>
+        <!--<input id='entry-input-1' type="text" name="content"  value=""  placeholder="Put your entry here." class="input-text">-->
         <br><br>
         <select id="categories-2" name= "categories">
           <option value="1">What I'm Reading</option>
@@ -72,6 +92,10 @@
         <input id='create-button' type="submit" name="submit" value="Create new day" class="submit">
       </form>
     </div>
+
+    <p style='text-align:center'> Create a new Day <button id='new-day-btn'</button></p>
+
+
 
   </main>
 
