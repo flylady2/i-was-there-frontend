@@ -18,14 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const createDayForm = document.querySelector('.form-container')
   createDayForm.style.display = 'none'
-  //debugger;
+  const addDayForm = document.getElementById('create-day-form')
+  //const addBtn = document.querySelector('#new-day-btn')
   getDays()
   addBtn.addEventListener('click', () => {
     //console.log('clicked')
-    //debugger;
+    addBtn.style.visibility = "hidden"//debugger;
     addDay = !addDay
     //debugger;
     if (addDay) {
+      addDayForm.reset()
       createDayForm.style.display = 'block'
       createDayForm.addEventListener("submit", (e) => {
         console.log('add day')
