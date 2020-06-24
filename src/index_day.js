@@ -170,13 +170,13 @@ function searchDayFetch(searchInput) {
     if (newEntriesData.length > 4) {
       const image = newEntriesData.pop()
       for (let i = 0; i < newEntriesData.length; i++) {
-        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
+        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
       }
       let newDaysImage = new Image(image).renderNewImage()
 
     } else {
       for (let i = 0; i < newEntriesData.length; i++) {
-        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
+        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
       }
 
     }
