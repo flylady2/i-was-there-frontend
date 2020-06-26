@@ -34,6 +34,8 @@ class Day {
       p1.innerText = `${this.name}`
     const p2 = document.querySelector('p2')
       p2.innerText = `${this.date}`
+    const addBtn = document.querySelector('#new-day-btn')
+      addBtn.style.visibility = "visible"
 
   }
 

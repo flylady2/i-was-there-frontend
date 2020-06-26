@@ -78,6 +78,7 @@ function getDays() {
         }
 
       }
+    //  .catch(errors => alert(@day.errors.full_messages))
 
       })
 
@@ -140,11 +141,19 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
       for (let i = 0; i < newEntriesData.length; i++) {
         let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
       }
-
     }
-
   }
 )
+//removeEntryCards()
+}
+
+function removeEntryCards() {
+  let entryCards = Array.prototype.slice.call(document.getElementsByClassName('entry-card'), 0)
+  debugger;
+     //while (entryCards.length > 0) {
+       //entryCards[0].remove()
+     //}
+
 
 }
 
@@ -192,10 +201,11 @@ function searchDayFetch(searchInput) {
   function editableEntry(event) {
     //console.log('here')
     //debugger;
-    let div = document.getElementById(event.target.id)
-    let h3 = div.firstChild
-    let h2 = h3.nextSibling
+    let h2 = document.getElementById(event.target.id)
+    //let h3 = div.firstChild
+    //let h2 = h3.nextSibling
     h2.contentEditable = true
+    div = h2.parentElement
     //debugger;
 
     let submitBtn = document.createElement('button')
@@ -240,9 +250,8 @@ function searchDayFetch(searchInput) {
     console.log(entryData)
     let submitBtn = document.querySelector('.submitBtn')
     submitBtn.remove()
-    let div = document.getElementById(entryData.id)
-    let h3 = div.firstChild
-    let h2 = h3.nextSibling
+
+    let h2 = document.getElementById(entryData.id)
     h2.innerText = entryData.attributes.content
     h2.contentEditable = false
     //console.log(entry)
