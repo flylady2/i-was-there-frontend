@@ -65,15 +65,18 @@ class Entry {
 
     let entriesCollection = document.getElementById("entries-container")
     //entriesCollection.innerHTML = ""
-    const div = document.createElement('div')
-    div.className = 'card'
-    div.setAttribute('id', this.id)//console.log(i)
+    const div = document.getElementById(this.i)
+    //div.className = 'card'
+    //div.setAttribute('id', this.id)//console.log(i)
     //debugger;
-    const h3 = document.getElementById(this.i)
+    const h3 = div.firstChild
     h3.innerText = `${this.category_name}`
     const h2 = h3.nextSibling
     h2.innerText = `${this.content}`
-
+    let editBtn = h2.nextSibling
+    if (editBtn) {
+      editBtn.remove()
+    }
     div.append(h3, h2)
     entriesCollection.appendChild(div)
 
