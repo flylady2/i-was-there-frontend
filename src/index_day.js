@@ -126,7 +126,7 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
   })
   .then(response => response.json())
   .then(day => {
-    //debugger;
+    console.log(day)
     const newDayData = day.data
     let newDay = new Day(newDayData).renderNewDay()
     const newEntriesData = day.included
@@ -166,6 +166,8 @@ function searchFormHandler(e) {
   //console.log(searchInput)
 }
 
+
+
 function searchDayFetch(searchInput) {
   fetch(`http://localhost:3000/api/v1/days?date=${searchInput}`)
 
@@ -192,6 +194,8 @@ function searchDayFetch(searchInput) {
 
   }
 )
+const searchForm = document.getElementById('search-day-form')
+searchForm.reset()
 
 }
 

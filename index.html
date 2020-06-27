@@ -45,11 +45,11 @@
       <form id="create-day-form" style="">
         <h3>New Day</h3>
         <label class="nativeDatePicker">Today's date:</label>
-        <input type="date" id="day-date" name="day-date">
-        <input id='input-name' type="text" name="name" value="" placeholder="Day of week" class="input-text">
+        <input type="date" id="day-date" name="day-date" required>
+        <input id='input-name' type="text" name="name" value="" placeholder="Day of week" class="input-text" required>
         <br><br>
-        <input id='input-url' type="text" name="image" value="" placeholder="Image of the day" class="input=text">
-        <input id='input-caption' type="text" name="caption" value="" placeholder="About the image" class="input-text">
+        <input id='input-url' type="text" name="image" value="" placeholder="Image of the day" class="input=text" required>
+        <input id='input-caption' type="text" name="caption" value="" placeholder="About the image" class="input-text" required>
         <!--<label for="caption">Caption:</label>
         <textarea id="caption" name="caption"></textarea>-->
         <br><br>
@@ -61,7 +61,7 @@
           <option value="3">3 things</option>
           <option value="4">1000 words</option>
         </select>
-        <textarea id="entry-input-1" name="content"></textarea>
+        <textarea id="entry-input-1" name="content" required></textarea>
         <!--<input id='entry-input-1' type="text" name="content"  value=""  placeholder="Put your entry here." class="input-text">-->
         <br><br>
         <select id="categories-2" name= "categories">
@@ -71,7 +71,7 @@
           <option value="4">1000 words</option>
         </select>
 
-        <input id='entry-input-2' type="text" name="content"  value=""  placeholder="Put your entry here." class="input-text">
+        <input id='entry-input-2' type="text" name="content"  value=""  placeholder="Put your entry here." class="input-text" required>
         <br><br>
 
         <select id="categories-3" name= "categories">
@@ -81,7 +81,7 @@
           <option value="4">1000 words</option>
         </select>
 
-        <input id='entry-input-3' type="text" name="content"  value=""  placeholder="Put your entry here." class="input-text">
+        <input id='entry-input-3' type="text" name="content"  value=""  placeholder="Put your entry here." class="input-text" required>
         <br><br>
         <select id="categories-4" name= "categories">
           <option value="1">What I'm Reading</option>
@@ -91,7 +91,7 @@
         </select>
 
 
-        <input id='entry-input-4' type="text" name="content"  value=""  placeholder="Put your entry here." class="input-text">
+        <input id='entry-input-4' type="text" name="content"  value=""  placeholder="Put your entry here." class="input-text" required>
         <br><br>
 
 
