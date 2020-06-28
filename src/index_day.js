@@ -18,14 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const createDayForm = document.querySelector('.form-container')
   createDayForm.style.display = 'none'
-  //debugger;
+  const addDayForm = document.getElementById('create-day-form')
+  //const addBtn = document.querySelector('#new-day-btn')
   getDays()
   addBtn.addEventListener('click', () => {
     //console.log('clicked')
-    //debugger;
+    addBtn.style.visibility = "hidden"//debugger;
     addDay = !addDay
     //debugger;
     if (addDay) {
+      addDayForm.reset()
       createDayForm.style.display = 'block'
       createDayForm.addEventListener("submit", (e) => {
         console.log('add day')
@@ -76,6 +78,7 @@ function getDays() {
         }
 
       }
+    //  .catch(errors => alert(@day.errors.full_messages))
 
       })
 
@@ -123,7 +126,7 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
   })
   .then(response => response.json())
   .then(day => {
-    //debugger;
+    console.log(day)
     const newDayData = day.data
     let newDay = new Day(newDayData).renderNewDay()
     const newEntriesData = day.included
@@ -138,11 +141,19 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
       for (let i = 0; i < newEntriesData.length; i++) {
         let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
       }
-
     }
-
   }
 )
+//removeEntryCards()
+}
+
+function removeEntryCards() {
+  let entryCards = Array.prototype.slice.call(document.getElementsByClassName('entry-card'), 0)
+  debugger;
+     //while (entryCards.length > 0) {
+       //entryCards[0].remove()
+     //}
+
 
 }
 
@@ -154,6 +165,8 @@ function searchFormHandler(e) {
   searchDayFetch(searchInput)
   //console.log(searchInput)
 }
+
+
 
 function searchDayFetch(searchInput) {
   fetch(`http://localhost:3000/api/v1/days?date=${searchInput}`)
@@ -168,19 +181,21 @@ function searchDayFetch(searchInput) {
     if (newEntriesData.length > 4) {
       const image = newEntriesData.pop()
       for (let i = 0; i < newEntriesData.length; i++) {
-        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
+        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
       }
       let newDaysImage = new Image(image).renderNewImage()
 
     } else {
       for (let i = 0; i < newEntriesData.length; i++) {
-        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
+        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
       }
 
     }
 
   }
 )
+const searchForm = document.getElementById('search-day-form')
+searchForm.reset()
 
 }
 
@@ -190,10 +205,11 @@ function searchDayFetch(searchInput) {
   function editableEntry(event) {
     //console.log('here')
     //debugger;
-    let div = document.getElementById(event.target.id)
-    let h3 = div.firstChild
-    let h2 = h3.nextSibling
+    let h2 = document.getElementById(event.target.id)
+    //let h3 = div.firstChild
+    //let h2 = h3.nextSibling
     h2.contentEditable = true
+    div = h2.parentElement
     //debugger;
 
     let submitBtn = document.createElement('button')
@@ -238,9 +254,8 @@ function searchDayFetch(searchInput) {
     console.log(entryData)
     let submitBtn = document.querySelector('.submitBtn')
     submitBtn.remove()
-    let div = document.getElementById(entryData.id)
-    let h3 = div.firstChild
-    let h2 = h3.nextSibling
+
+    let h2 = document.getElementById(entryData.id)
     h2.innerText = entryData.attributes.content
     h2.contentEditable = false
     //console.log(entry)

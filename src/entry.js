@@ -13,47 +13,36 @@ class Entry {
     let entriesCollection = document.getElementById("entries-container")
 
     const div = document.createElement('div')
-    div.className = 'card'
-    div.setAttribute('id', this.id)
+    div.className = 'entry-card'
+    div.setAttribute('id', this.i)
     const h3 = document.createElement('h3')
-    h3.setAttribute('id', this.i)
+    //h3.setAttribute('id', this.i)
 
     h3.innerText = `${this.category_name}`
 
     const h2 = document.createElement('h2')
-    h2.setAttribute('id', this.i)
-
+    //h2.setAttribute('id', this.i)
 
     h2.innerText = `${this.content}`
 
-    //debugger;
-    //let editBtn = document.createElement('button')
-    //editBtn.setAttribute('id', `${entry.id}`)
-    //editBtn.className = 'editBtn'
-    //editBtn.textContent = 'Edit'
     div.append(h3, h2)
     entriesCollection.appendChild(div)
-    //editBtn.addEventListener("click", event => {
-    //  event.preventDefault()
-    //  console.log('clicked')
-    //  editableEntry(event)
-      //debugger;
-    //})
-
-
 
   }
 
   renderNewEntry() {
+
     let entriesCollection = document.getElementById("entries-container")
 
-    const div = document.createElement('div')
-    div.className = 'card'
-    div.setAttribute('id', this.id)//console.log(i)
+    const div = document.getElementById(this.i)
+    //div.className = 'card'
+    //div.setAttribute('id', this.id)//console.log(i)
     //debugger;
-    const h3 = document.getElementById(this.i)
+    //const h3 = document.getElementById(this.i)
+    const h3 = div.firstChild
     h3.innerText = `${this.category_name}`
     const h2 = h3.nextSibling
+    h2.setAttribute('id', this.id)
     h2.innerText = `${this.content}`
 
     let editBtn = document.createElement('button')
@@ -72,9 +61,24 @@ class Entry {
       })
   }
 
-    //editEntry()
-      //editEntry(id)
+  renderFoundEntry() {
 
+    let entriesCollection = document.getElementById("entries-container")
+    //entriesCollection.innerHTML = ""
+    const div = document.getElementById(this.i)
+    //div.className = 'card'
+    //div.setAttribute('id', this.id)//console.log(i)
+    //debugger;
+    const h3 = div.firstChild
+    h3.innerText = `${this.category_name}`
+    const h2 = h3.nextSibling
+    h2.innerText = `${this.content}`
+    let editBtn = h2.nextSibling
+    if (editBtn) {
+      editBtn.remove()
+    }
+    div.append(h3, h2)
+    entriesCollection.appendChild(div)
 
-
+  }
 }
