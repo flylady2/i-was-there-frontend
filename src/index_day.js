@@ -70,7 +70,9 @@ function getDays() {
           let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
         }
         //renderImage(daysImage)
-        let lastDaysImage = new Image(image).renderImage()
+        //let lastDaysImage = new Image(image).renderImage()
+        let lastDaysImage = new Image(image)//.renderNewImage()
+        document.querySelector(`#image-container`).innerHTML = lastDaysImage.renderImage()
         //debugger;
       } else {
         for (let i = 0; i < daysEntries.length; i++) {
@@ -135,7 +137,9 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
       for (let i = 0; i < newEntriesData.length; i++) {
         let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
       }
-      let newDaysImage = new Image(image).renderNewImage()
+      let newDaysImage = new Image(image)//.renderNewImage()
+      document.querySelector(`#image-container`).innerHTML = newDaysImage.renderNewImage()
+
 
     } else {
       for (let i = 0; i < newEntriesData.length; i++) {
