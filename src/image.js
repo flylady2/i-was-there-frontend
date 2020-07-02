@@ -27,19 +27,22 @@ class Image {
     //New code:
     return `
       <div class="container-fluid">
-        <img src=${this.url} class="img-fluid" alt="responsive image">
-        <p>${this.caption}</p>
+        <img id="img" src=${this.url} class="img-fluid" alt="responsive image">
+        <p id="p3">${this.caption}</p>
       </div>
       `
 
   }
 
   renderNewImage() {
-
-    let img = document.querySelector('img')
+    //let img = document.querySelector('img')
+    let img = document.getElementById('img')
+    //debugger;
     img.src = `${this.url}`
-    const p3 = document.querySelector('p')
+    const p3 = document.getElementById('p3')
     p3.innerText = `${this.caption}`
+
+
     //<img src=${image.attributes.url} height="200" width="250">
     //const p = document.createElement('p')
     //p.innerText = `${image.attributes.caption}`

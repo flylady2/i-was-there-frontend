@@ -137,8 +137,9 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
       for (let i = 0; i < newEntriesData.length; i++) {
         let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
       }
-      let newDaysImage = new Image(image)//.renderNewImage()
-      document.querySelector(`#image-container`).innerHTML = newDaysImage.renderNewImage()
+      let newDaysImage = new Image(image).renderNewImage()
+      //document.querySelector(`#image-container`).innerHTML = newDaysImage.renderNewImage()
+
 
 
     } else {
