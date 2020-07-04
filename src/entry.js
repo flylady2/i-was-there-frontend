@@ -11,22 +11,30 @@ class Entry {
   renderEntry() {
     //console.log(entry)
     let entriesCollection = document.getElementById("entries-container")
+    //return `
+    //  <div id="${this.i}" class="col-md-4">
+    //    <h3 class="category=name">${this.category_name}</h3>
+    //    <h2 class="entry-content">${this.content}</h2>
+    //  </div>
+    //  `
 
-    const div = document.createElement('div')
-    div.className = 'entry-card'
-    div.setAttribute('id', this.i)
+    const divRow = document.getElementById('entry-row1')
+    const divCol = document.createElement('div')
+    divCol.className = 'col-md-4'
+    divCol.setAttribute('id', this.i)
     const h3 = document.createElement('h3')
-    //h3.setAttribute('id', this.i)
+    h3.setAttribute('id', this.i)
 
     h3.innerText = `${this.category_name}`
 
     const h2 = document.createElement('h2')
-    //h2.setAttribute('id', this.i)
+    h2.setAttribute('id', this.i)
 
     h2.innerText = `${this.content}`
 
-    div.append(h3, h2)
-    entriesCollection.appendChild(div)
+    divCol.append(h3, h2)
+    divRow.append(divCol)
+    entriesCollection.appendChild(divRow)
 
   }
 
@@ -34,12 +42,12 @@ class Entry {
 
     let entriesCollection = document.getElementById("entries-container")
 
-    const div = document.getElementById(this.i)
+    //const div = document.getElementById(this.i)
     //div.className = 'card'
     //div.setAttribute('id', this.id)//console.log(i)
     //debugger;
-    //const h3 = document.getElementById(this.i)
-    const h3 = div.firstChild
+    const h3 = document.getElementById(this.i)
+    //const h3 = div.firstChild
     h3.innerText = `${this.category_name}`
     const h2 = h3.nextSibling
     h2.setAttribute('id', this.id)

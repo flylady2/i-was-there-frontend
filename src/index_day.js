@@ -62,7 +62,7 @@ function getDays() {
       })
         //renderDay(day))
       const daysEntries = days.included
-      //debugger;
+      //let entriesCollection = document.querySelector(#'entries-container')
       if (daysEntries.length > 4) {
         const image = daysEntries.pop()
         //debugger;
