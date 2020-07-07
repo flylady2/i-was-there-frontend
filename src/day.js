@@ -14,17 +14,17 @@ class Day {
 
 
   renderDay() {
-    let daysCollection = document.getElementById("days-container")
+    //let daysCollection = document.getElementById("days-container")
   //debugger;
-    const div = document.createElement('div')
-    div.className = 'card'
-    div.setAttribute("data-id", `${this.id}`)
-    const p1 = document.createElement('p1')
+    //const div = document.createElement('div')
+    //div.className = 'card'
+    //div.setAttribute("data-id", `${this.id}`)
+    const p1 = document.getElementById('left-header')
     p1.innerText = `${this.name}`
-    const p2 = document.createElement('p2')
+    const p2 = document.getElementById('right-header')
     p2.innerText = `${this.date}`
-    div.append(p1, p2)
-    daysCollection.appendChild(div)
+    //div.append(p1, p2)
+    //daysCollection.appendChild(div)
   }
 
 

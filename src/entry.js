@@ -54,9 +54,10 @@ class Entry {
     //div.className = 'card'
     //div.setAttribute('id', this.id)//console.log(i)
     //debugger;
-    const div = document.getElementById(this.i)
+    const divCol = document.getElementById(this.i)
+    const cardBody = divCol.firstChild.firstChild
 
-    const h3 = div.firstChild
+    const h3 = divCol.firstChild.firstChild.firstChild
     h3.innerText = `${this.category_name}`
     const h2 = h3.nextSibling
     h2.setAttribute('id', this.id)
@@ -66,7 +67,7 @@ class Entry {
     editBtn.setAttribute('id', this.id)
     editBtn.className = 'editBtn'
     editBtn.textContent = 'Edit'
-    div.append(h3, h2, editBtn)
+    cardBody.append(editBtn)
     //entriesCollection.appendChild(div)
     editBtn.addEventListener("click", event => {
       event.preventDefault()
@@ -82,11 +83,12 @@ class Entry {
 
     //let entriesCollection = document.getElementById("entries-container")
     //entriesCollection.innerHTML = ""
-    const div = document.getElementById(this.i)
+    const divCol = document.getElementById(this.i)
+    //const cardBody = divCol.firstChild.firstChild
     //div.className = 'card'
     //div.setAttribute('id', this.id)//console.log(i)
     //debugger;
-    const h3 = div.firstChild
+    const h3 = divCol.firstChild.firstChild.firstChild
     h3.innerText = `${this.category_name}`
     const h2 = h3.nextSibling
     h2.innerText = `${this.content}`
@@ -94,7 +96,7 @@ class Entry {
     if (editBtn) {
       editBtn.remove()
     }
-    div.append(h3, h2)
+    //div.append(h3, h2)
     //entriesCollection.appendChild(div)
 
   }
