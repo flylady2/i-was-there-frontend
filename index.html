@@ -46,7 +46,7 @@
 
 
           <div class="col-4 text-center">
-            <h1 class="display-4 font-italic">Your Day</h1>
+            <h1 class="display-4 font-italic">My Day</h1>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             <h1 id="right-header"></h1>
@@ -68,19 +68,22 @@
       <br><br>
       <br><br>
 
-      <div class="button-container">
-        <button id='new-day-btn' type="button"> Add a day</button>
-      </div>
-      <br><br>
-
-
-      <div class="search-form-container">
-        <form id="search-day-form" style="">
-          <h3>Find a Day</h3>
-          <label class="nativeDatePicker">Date:</label>
-          <input type="date" id="search-date" name="search-date" required>
-          <input id='search-button' type="submit" name="submit" value="Search for a day" class="submit">
-        </form>
+      <div class="container" id="search-and-add-container">
+        <div class="row">
+          <div class="col">
+            <button id='new-day-btn' type="button"> Add a day</button>
+          </div>
+          <div class= "col">
+            <div class="search-form-container">
+              <form id="search-day-form" style="">
+                <!-- <h3>Find a Day</h3> -->
+                <label class="nativeDatePicker">Date:</label>
+                <input type="date" id="search-date" name="search-date" required>
+                <input id='search-button' type="submit" name="submit" value="Search for a day" class="submit">
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
 
       <br><br>

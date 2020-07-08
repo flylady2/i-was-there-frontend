@@ -28,17 +28,18 @@ class Entry {
     divBody.className = 'card-body'
 
 
-    const h3 = document.createElement('h3')
+    const h5 = document.createElement('h5')
     //h3.setAttribute('id', this.i)
 
-    h3.innerText = `${this.category_name}`
+    h5.innerText = `${this.category_name}`
 
-    const h2 = document.createElement('h2')
+    //const h2 = document.createElement('h2')
     //h2.setAttribute('id', this.i)
+    const p = document.createElement('p')
+    p.className = 'card-text'
+    p.innerText = `${this.content}`
 
-    h2.innerText = `${this.content}`
-
-    divBody.append(h3, h2)
+    divBody.append(h5, p)
     divCard.append(divBody)
     divCol.append(divCard)
     divRow.append(divCol)
@@ -57,15 +58,16 @@ class Entry {
     const divCol = document.getElementById(this.i)
     const cardBody = divCol.firstChild.firstChild
 
-    const h3 = divCol.firstChild.firstChild.firstChild
-    h3.innerText = `${this.category_name}`
-    const h2 = h3.nextSibling
-    h2.setAttribute('id', this.id)
-    h2.innerText = `${this.content}`
+    const h5 = divCol.firstChild.firstChild.firstChild
+    h5.innerText = `${this.category_name}`
+    const p = h5.nextSibling
+    p.setAttribute('id', this.id)
+    p.innerText = `${this.content}`
 
     let editBtn = document.createElement('button')
     editBtn.setAttribute('id', this.id)
-    editBtn.className = 'editBtn'
+
+    editBtn.className = 'btn btn-sm btn-outline-secondary'
     editBtn.textContent = 'Edit'
     cardBody.append(editBtn)
     //entriesCollection.appendChild(div)

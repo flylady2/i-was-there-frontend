@@ -30,9 +30,9 @@ class Day {
 
   renderNewDay() {
     //console.log(day)
-    const p1 = document.querySelector('p1')
+    const p1 = document.getElementById('left-header')
       p1.innerText = `${this.name}`
-    const p2 = document.querySelector('p2')
+    const p2 = document.getElementById('right-header')
       p2.innerText = `${this.date}`
     const addBtn = document.querySelector('#new-day-btn')
       addBtn.style.visibility = "visible"

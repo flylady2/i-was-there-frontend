@@ -219,7 +219,7 @@ searchForm.reset()
 
     let submitBtn = document.createElement('button')
     submitBtn.setAttribute('id', `${event.target.id}`)
-    submitBtn.className = 'submitBtn'
+    submitBtn.className = 'btn btn-sm btn-outline-secondary submitBtn'
     submitBtn.textContent = 'Submit'
     div.append(submitBtn)
     //debugger;
