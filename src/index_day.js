@@ -62,7 +62,7 @@ function getDays() {
       })
         //renderDay(day))
       const daysEntries = days.included
-      //debugger;
+      //let entriesCollection = document.querySelector(#'entries-container')
       if (daysEntries.length > 4) {
         const image = daysEntries.pop()
         //debugger;
@@ -70,7 +70,9 @@ function getDays() {
           let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
         }
         //renderImage(daysImage)
-        let lastDaysImage = new Image(image).renderImage()
+        //let lastDaysImage = new Image(image).renderImage()
+        let lastDaysImage = new Image(image)//.renderNewImage()
+        document.querySelector(`#image-container`).innerHTML = lastDaysImage.renderImage()
         //debugger;
       } else {
         for (let i = 0; i < daysEntries.length; i++) {
@@ -136,6 +138,9 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
         let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
       }
       let newDaysImage = new Image(image).renderNewImage()
+      //document.querySelector(`#image-container`).innerHTML = newDaysImage.renderNewImage()
+
+
 
     } else {
       for (let i = 0; i < newEntriesData.length; i++) {
@@ -214,7 +219,7 @@ searchForm.reset()
 
     let submitBtn = document.createElement('button')
     submitBtn.setAttribute('id', `${event.target.id}`)
-    submitBtn.className = 'submitBtn'
+    submitBtn.className = 'btn btn-sm btn-outline-secondary submitBtn'
     submitBtn.textContent = 'Submit'
     div.append(submitBtn)
     //debugger;
