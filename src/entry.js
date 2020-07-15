@@ -1,3 +1,5 @@
+
+
 class Entry {
   constructor(entry, i) {
     //debugger;
@@ -8,15 +10,11 @@ class Entry {
     //this.renderEntry()
   }
 
+
+
   renderEntry() {
-    //console.log(entry)
+
     let entriesCollection = document.getElementById("entries-container")
-    //return `
-    //  <div id="${this.i}" class="col-md-4">
-    //    <h3 class="category=name">${this.category_name}</h3>
-    //    <h2 class="entry-content">${this.content}</h2>
-    //  </div>
-    //  `
 
     const divRow = document.getElementById('entry-row1')
     const divCol = document.createElement('div')
@@ -29,12 +27,10 @@ class Entry {
 
 
     const h5 = document.createElement('h5')
-    //h3.setAttribute('id', this.i)
+
 
     h5.innerText = `${this.category_name}`
 
-    //const h2 = document.createElement('h2')
-    //h2.setAttribute('id', this.i)
     const p = document.createElement('p')
     p.className = 'card-text'
     p.innerText = `${this.content}`
@@ -46,6 +42,7 @@ class Entry {
     entriesCollection.appendChild(divRow)
 
   }
+
 
   renderNewEntry() {
 
@@ -70,26 +67,22 @@ class Entry {
     editBtn.className = 'btn btn-sm btn-outline-secondary'
     editBtn.textContent = 'Edit'
     cardBody.append(editBtn)
-    //entriesCollection.appendChild(div)
+
     editBtn.addEventListener("click", event => {
       event.preventDefault()
-      //debugger;
-      console.log('clicked')
-      //debugger;
-      editableEntry(event)
-        //debugger;
+
+      console.log('clicked on edit')
+
+      let newEditableEntry = new EditableEntry(event.target.id, p.innerText).makeEditable()
+
       })
   }
 
+
   renderFoundEntry() {
 
-    //let entriesCollection = document.getElementById("entries-container")
-    //entriesCollection.innerHTML = ""
     const divCol = document.getElementById(this.i)
-    //const cardBody = divCol.firstChild.firstChild
-    //div.className = 'card'
-    //div.setAttribute('id', this.id)//console.log(i)
-    //debugger;
+
     const h3 = divCol.firstChild.firstChild.firstChild
     h3.innerText = `${this.category_name}`
     const h2 = h3.nextSibling
@@ -98,8 +91,9 @@ class Entry {
     if (editBtn) {
       editBtn.remove()
     }
-    //div.append(h3, h2)
-    //entriesCollection.appendChild(div)
+
 
   }
+
+
 }

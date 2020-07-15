@@ -1,3 +1,5 @@
+
+
 let addDay = false
 const endPoint = "http://localhost:3000/api/v1/days";
 
@@ -152,15 +154,7 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
 //removeEntryCards()
 }
 
-function removeEntryCards() {
-  let entryCards = Array.prototype.slice.call(document.getElementsByClassName('entry-card'), 0)
-  debugger;
-     //while (entryCards.length > 0) {
-       //entryCards[0].remove()
-     //}
 
-
-}
 
 function searchFormHandler(e) {
   //e.preventDefault()
@@ -207,36 +201,27 @@ searchForm.reset()
 
 
 
-  function editableEntry(event) {
-    //console.log('here')
-    //debugger;
-    let h2 = document.getElementById(event.target.id)
-    //let h3 = div.firstChild
-    //let h2 = h3.nextSibling
-    h2.contentEditable = true
-    div = h2.parentElement
-    //debugger;
+//  function editableEntry(event) {
+//    let h2 = document.getElementById(event.target.id)
+//    h2.contentEditable = true
+//    div = h2.parentElement
+//    let submitBtn = document.createElement('button')
+//    submitBtn.setAttribute('id', `${event.target.id}`)
+//    submitBtn.className = 'btn btn-sm btn-outline-secondary submitBtn'
+//    submitBtn.textContent = 'Submit'
+//    div.append(submitBtn)
+//    submitBtn.addEventListener("click", event_two => {
+//      event_two.preventDefault()
+//      console.log('submitted')
+//     editEntry(event_two.target.id, h2)
+//   })
+//  }
 
-    let submitBtn = document.createElement('button')
-    submitBtn.setAttribute('id', `${event.target.id}`)
-    submitBtn.className = 'btn btn-sm btn-outline-secondary submitBtn'
-    submitBtn.textContent = 'Submit'
-    div.append(submitBtn)
-    //debugger;
-    submitBtn.addEventListener("click", event_two => {
-      event_two.preventDefault()
-      console.log('submitted')
-      editEntry(event_two.target.id, h2)
-            //debugger;
-    })
-  }
 
-  function editEntry(id, h2) {
-    //debugger;
-    //let div = document.getElementById(id)
-    //let h2 = div.nextSibling
-    //h2.contentEditable = true
-    const newContent = h2.innerText
+
+  function editEntry(id, p) {
+
+    const newContent = p.innerText
     const editData = {id, newContent}
     fetch(`http://localhost:3000/api/v1/entries/${id}`, {
       method: "PATCH",
@@ -249,19 +234,8 @@ searchForm.reset()
     .then(response => response.json())
       .then(entry => {
         console.log(entry)
-        renderEditedEntry(entry)
+        //debugger;
+        let updatedEntry = new EditableEntry(entry.data.id, entry.data.attributes.content).renderEditedEntry()
+
     })
-  }
-
-
-  function renderEditedEntry(entry) {
-    let entryData = entry.data
-    console.log(entryData)
-    let submitBtn = document.querySelector('.submitBtn')
-    submitBtn.remove()
-
-    let h2 = document.getElementById(entryData.id)
-    h2.innerText = entryData.attributes.content
-    h2.contentEditable = false
-    //console.log(entry)
   }
