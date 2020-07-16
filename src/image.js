@@ -11,26 +11,35 @@ class Image {
 
 
   renderImage() {
-    //debugger;
-    //let imageContainer = document.getElementById("image-container")
-    //const div = document.createElement('div')
-    //div.className = 'card'
-    //let img = document.createElement('img')
+    //newest code
+    let imageContainer = document.getElementById("image-container")
+    const div = document.createElement('div')
+    div.className = 'container-fluid'
+    imageContainer.append(div)
+    let img = document.createElement('img')
+    img.setAttribute('id', 'img')
+    img.className = 'img-fluid'
+    img.src = `${this.url}`
+//
+    const p1 = document.createElement('p1')
+    p1.setAttribute('id', 'p1')
 
-    //img.src = `${this.url}`
-
-    //const p3 = document.createElement('p3')
-    //p3.innerText = `${this.caption}`
+    p1.innerText = `${this.caption}`
+    div.append(img, p1)
+//    imageContainer.append(div, p1)
+    //old code
+      //const div = document.createElement('div')
+        //const p3 = document.createElement('p3')
     //div.append(img, p3)
     //imageContainer.appendChild(div)
     //<img src=${image.attributes.url} height="200" width="250">
     //New code:
-    return `
-      <div class="container-fluid">
-        <img id="img" src=${this.url} class="img-fluid" alt="responsive image">
-        <p id="p3">${this.caption}</p>
-      </div>
-      `
+//    return `
+//      <div class="container-fluid">
+//        <img id="img" src=${this.url} class="img-fluid" alt="responsive image">
+//        <p id="p3">${this.caption}</p>
+//      </div>
+//      `
 
   }
 
@@ -39,8 +48,8 @@ class Image {
     let img = document.getElementById('img')
     //debugger;
     img.src = `${this.url}`
-    const p3 = document.getElementById('p3')
-    p3.innerText = `${this.caption}`
+    const p1 = document.getElementById('p1')
+    p1.innerText = `${this.caption}`
 
 
     //<img src=${image.attributes.url} height="200" width="250">

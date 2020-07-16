@@ -73,8 +73,8 @@ function getDays() {
         }
         //renderImage(daysImage)
         //let lastDaysImage = new Image(image).renderImage()
-        let lastDaysImage = new Image(image)//.renderNewImage()
-        document.querySelector(`#image-container`).innerHTML = lastDaysImage.renderImage()
+        let lastDaysImage = new Image(image).renderImage()
+        //document.querySelector(`#image-container`).innerHTML = lastDaysImage.renderImage()
         //debugger;
       } else {
         for (let i = 0; i < daysEntries.length; i++) {
