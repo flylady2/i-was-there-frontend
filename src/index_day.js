@@ -53,39 +53,35 @@ function getDays() {
   fetch(endPoint)
     .then(res => res.json())
     .then(days => {
-      //debugger;
-      //console.log(days)
-      //debugger;
+      //old code:
       const daysData = days.data
+      console.log(daysData)
+      debugger;
       daysData.forEach(day => {
-        //console.log(day)
-        //debugger;
         let lastDay = new Day(day).renderDay()
       })
-        //renderDay(day))
       const daysEntries = days.included
-      //let entriesCollection = document.querySelector(#'entries-container')
-      if (daysEntries.length > 4) {
-        const image = daysEntries.pop()
-        //debugger;
-        for (let i = 0; i < daysEntries.length; i++) {
-          let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
-        }
-        //renderImage(daysImage)
-        //let lastDaysImage = new Image(image).renderImage()
-        let lastDaysImage = new Image(image).renderImage()
-        //document.querySelector(`#image-container`).innerHTML = lastDaysImage.renderImage()
-        //debugger;
-      } else {
-        for (let i = 0; i < daysEntries.length; i++) {
-          let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
-        }
-
-      }
+      console.log(daysEntries)
+      debugger;
+      // new code:
+      const image = daysEntries.pop()
+      let lastDaysImage = new Image(image).renderImage()
+      for (let i = 0; i < daysEntries.length; i++) {
+            let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
+          }
+    //  if (daysEntries.length > 4) {
+    //    const image = daysEntries.pop()
+    //    for (let i = 0; i < daysEntries.length; i++) {
+    //      let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
+    //    }
+    //    let lastDaysImage = new Image(image).renderImage()
+    //  } else {
+    //    for (let i = 0; i < daysEntries.length; i++) {
+    //      let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
+    //    }
+    //  }
     //  .catch(errors => alert(@day.errors.full_messages))
-
       })
-
 }
 
 function createFormHandler(e) {
@@ -108,15 +104,21 @@ function createFormHandler(e) {
   const entryInput4 = document.querySelector('#entry-input-4').value
   const categoryInput4 = document.querySelector('#categories-4').value
   const categoryId4 = parseInt(categoryInput4)
+  const entryInput5 = document.querySelector('#entry-input-5').value
+  const categoryInput5 = document.querySelector('#categories-5').value
+  const categoryId5 = parseInt(categoryInput5)
+  const entryInput6 = document.querySelector('#entry-input-6').value
+  const categoryInput6 = document.querySelector('#categories-6').value
+  const categoryId6 = parseInt(categoryInput6)
   const imageInput = document.querySelector('#input-url').value
   const imageCaption = document.querySelector('#input-caption').value
-  postFetchDay(dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4, imageInput, imageCaption)
+  postFetchDay(dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4, entryInput5, categoryId5, entryInput6, categoryId6, imageInput, imageCaption)
 }
 
 
-function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, input_url, input_caption) {
+function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, entry_content_5, category_id_5, entry_content_6, category_id_6, input_url, input_caption) {
   //console.log(date, name, entry_content, category_id)
-  const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, input_url, input_caption}
+  const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, entry_content_5, category_id_5, entry_content_6, category_id_6, input_url, input_caption}
   const createDayForm = document.querySelector('.form-container')
   createDayForm.style.display = 'none'
 
@@ -134,21 +136,28 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
     const newDayData = day.data
     let newDay = new Day(newDayData).renderNewDay()
     const newEntriesData = day.included
-    if (newEntriesData.length > 4) {
-      const image = newEntriesData.pop()
-      for (let i = 0; i < newEntriesData.length; i++) {
-        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
-      }
-      let newDaysImage = new Image(image).renderNewImage()
+    //new code:
+    const image = newEntriesData.pop()
+    let newDaysImage = new Image(image).renderNewImage()
+    for (let i = 0; i < newEntriesData.length; i++) {
+      let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
+    }
+    //old code:
+    //if (newEntriesData.length > 4) {
+    //  const image = newEntriesData.pop()
+    //  for (let i = 0; i < newEntriesData.length; i++) {
+    //    let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
+    //  }
+    //  let newDaysImage = new Image(image).renderNewImage()
       //document.querySelector(`#image-container`).innerHTML = newDaysImage.renderNewImage()
 
 
 
-    } else {
-      for (let i = 0; i < newEntriesData.length; i++) {
-        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
-      }
-    }
+  //  } else {
+  //    for (let i = 0; i < newEntriesData.length; i++) {
+  //      let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
+  //    }
+  //  }
   }
 )
 //removeEntryCards()
