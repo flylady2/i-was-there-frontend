@@ -55,17 +55,18 @@ function getDays() {
     .then(days => {
       //old code:
       const daysData = days.data
-      console.log(daysData)
-      debugger;
+
       daysData.forEach(day => {
         let lastDay = new Day(day).renderDay()
       })
       const daysEntries = days.included
-      console.log(daysEntries)
-      debugger;
+
+
       // new code:
       const image = daysEntries.pop()
+
       let lastDaysImage = new Image(image).renderImage()
+
       for (let i = 0; i < daysEntries.length; i++) {
             let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
           }
@@ -142,6 +143,7 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
     for (let i = 0; i < newEntriesData.length; i++) {
       let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
     }
+
     //old code:
     //if (newEntriesData.length > 4) {
     //  const image = newEntriesData.pop()
@@ -186,17 +188,24 @@ function searchDayFetch(searchInput) {
     //debugger;
     let newDay = new Day(newDayData).renderNewDay()
     const newEntriesData = day.included
-    if (newEntriesData.length > 4) {
-      const image = newEntriesData.pop()
-      for (let i = 0; i < newEntriesData.length; i++) {
-        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
-      }
-      let newDaysImage = new Image(image).renderNewImage()
+    // new code
+    const image = newEntriesData.pop()
+    let newDaysImage = new Image(image).renderNewImage()
+    for (let i = 0; i < newEntriesData.length; i++) {
+      let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
+    //old code
 
-    } else {
-      for (let i = 0; i < newEntriesData.length; i++) {
-        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
-      }
+  //  if (newEntriesData.length > 4) {
+  //    const image = newEntriesData.pop()
+  //    for (let i = 0; i < newEntriesData.length; i++) {
+  //      let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
+  //    }
+  //    let newDaysImage = new Image(image).renderNewImage()
+
+  //  } else {
+  //    for (let i = 0; i < newEntriesData.length; i++) {
+  //      let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
+  //    }
 
     }
 

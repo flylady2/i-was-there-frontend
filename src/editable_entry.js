@@ -35,6 +35,7 @@ class EditableEntry {
       let p = document.getElementById(this.id)
       p.innerText = this.content
       p.contentEditable = false
+      
       //console.log(entry)
     }
 

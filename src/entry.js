@@ -45,7 +45,7 @@ class Entry {
 
 
   renderNewEntry() {
-
+    
     //let entriesCollection = document.getElementById("entries-container")
 
     //const div = document.getElementById(this.i)
