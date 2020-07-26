@@ -2,16 +2,15 @@
 
 class Entry {
   constructor(entry, i) {
-    //debugger;
+    console.log(entry)
     this.id = entry.id
     this.category_name = entry.attributes.category.name
     this.content = entry.attributes.content
     this.i = i
-    //this.renderEntry()
   }
 
 
-
+  //render entry from most recently created day in database
   renderEntry() {
 
     let entriesCollection = document.getElementById("entries-container")
@@ -25,9 +24,7 @@ class Entry {
     const divBody = document.createElement('card-body')
     divBody.className = 'card-body'
 
-
     const h5 = document.createElement('h5')
-
 
     h5.innerText = `${this.category_name}`
 
@@ -43,15 +40,9 @@ class Entry {
 
   }
 
-
+  //render entry from newly created day
   renderNewEntry() {
-    
-    //let entriesCollection = document.getElementById("entries-container")
 
-    //const div = document.getElementById(this.i)
-    //div.className = 'card'
-    //div.setAttribute('id', this.id)//console.log(i)
-    //debugger;
     const divCol = document.getElementById(this.i)
     const cardBody = divCol.firstChild.firstChild
 
@@ -78,22 +69,20 @@ class Entry {
       })
   }
 
-
+  //render entry from day found by search
   renderFoundEntry() {
 
     const divCol = document.getElementById(this.i)
 
-    const h3 = divCol.firstChild.firstChild.firstChild
-    h3.innerText = `${this.category_name}`
-    const h2 = h3.nextSibling
-    h2.innerText = `${this.content}`
-    let editBtn = h2.nextSibling
+    const h5 = divCol.firstChild.firstChild.firstChild
+    h5.innerText = `${this.category_name}`
+    const p = h5.nextSibling
+    p.setAttribute('id', this.id)
+    p.innerText = `${this.content}`
+
+    let editBtn = p.nextSibling
     if (editBtn) {
       editBtn.remove()
     }
-
-
   }
-
-
 }
