@@ -149,7 +149,7 @@ function searchDayFetch(searchInput) {
 
     const newDayData = day.data[0]
 
-    let newDay = new Day(newDayData).renderNewDay()
+    let newDay = new Day(newDayData).renderDay()
     const newEntriesData = day.included
 
     const image = newEntriesData.pop()
