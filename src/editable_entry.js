@@ -18,8 +18,6 @@ class EditableEntry {
     submitBtn.textContent = 'Submit'
     div.append(submitBtn)
     submitBtn.addEventListener("click", event => {
-      event.preventDefault()
-      console.log('submitted')
       editEntry(event.target.id, p)
    })
   }
