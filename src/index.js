@@ -71,7 +71,7 @@ function getDays() {
 //handle input from form for creating a new day
 function createFormHandler(e) {
 
-  //e.preventDefault()
+  e.preventDefault()
 
   const dateInput = document.querySelector('#day-date').value
   const nameInput = document.querySelector('#input-name').value
