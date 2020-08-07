@@ -2,7 +2,7 @@
 
 class Entry {
   constructor(entry, i) {
-    console.log(entry)
+
     this.id = entry.id
     this.category_name = entry.attributes.category.name
     this.content = entry.attributes.content
@@ -19,6 +19,7 @@ class Entry {
     const divCol = document.createElement('div')
     divCol.className = 'col-md-4'
     divCol.setAttribute('id', this.i)
+
     const divCard = document.createElement('card')
     divCard.className = 'card border-primary mb-3'
     const divBody = document.createElement('card-body')
@@ -60,24 +61,22 @@ class Entry {
     cardBody.append(editBtn)
 
     editBtn.addEventListener("click", event => {
-      event.preventDefault()
-
-      console.log('clicked on edit')
 
       let newEditableEntry = new EditableEntry(event.target.id, p.innerText).makeEditable()
 
       })
+
   }
+
 
   //render entry from day found by search
   renderFoundEntry() {
 
     const divCol = document.getElementById(this.i)
-
     const h5 = divCol.firstChild.firstChild.firstChild
     h5.innerText = `${this.category_name}`
     const p = h5.nextSibling
-    p.setAttribute('id', this.id)
+
     p.innerText = `${this.content}`
 
     let editBtn = p.nextSibling

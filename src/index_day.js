@@ -4,8 +4,13 @@ let addDay = false
 const endPoint = "http://localhost:3000/api/v1/days";
 
 
+
 document.addEventListener('DOMContentLoaded', () => {
   const addBtn = document.querySelector('#new-day-btn')
+  const reloadBtn = document.querySelector('#reload-btn')
+  reloadBtn.style.visibility = "hidden"
+  const reloadP = document.querySelector('#reload')
+  reloadP.style.visibility = "hidden"
   const searchForm = document.querySelector('.search-form-container')
   searchForm.addEventListener('submit', (e) => {
 
@@ -28,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
       addDayForm.reset()
       createDayForm.style.display = 'block'
       createDayForm.addEventListener("submit", (e) => {
-        console.log('add day')
+
         e.preventDefault()
         createFormHandler(e)
       })
@@ -37,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
       createDayForm.style.display = 'none'
     }
   })
-
 });
 
 
@@ -47,9 +51,9 @@ function getDays() {
   fetch(endPoint)
     .then(res => res.json())
     .then(day => {
-      console.log(day)
+
       const daysData = day.data
-      let lastDay = new Day(daysData).renderDay()//console.log(days.data)
+      let lastDay = new Day(daysData).renderDay()
 
 
       const daysEntries = day.included
@@ -142,16 +146,15 @@ function searchDayFetch(searchInput) {
 
   .then(response => response.json())
   .then(day => {
-    console.log(day)
-    //debugger;
+
     const newDayData = day.data[0]
-    //debugger;
+
     let newDay = new Day(newDayData).renderNewDay()
     const newEntriesData = day.included
-    console.log(newEntriesData)
 
     const image = newEntriesData.pop()
     let newDaysImage = new Image(image).renderNewImage()
+
     for (let i = 0; i < newEntriesData.length; i++) {
       let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
     }
