@@ -3,36 +3,37 @@
 let addDay = false
 const endPoint = "http://localhost:3000/api/v1/days";
 
-//debugger;
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const addBtn = document.querySelector('#new-day-btn')
+  const reloadBtn = document.querySelector('#reload-btn')
+  reloadBtn.style.visibility = "hidden"
+  const reloadP = document.querySelector('#reload')
+  reloadP.style.visibility = "hidden"
   const searchForm = document.querySelector('.search-form-container')
   searchForm.addEventListener('submit', (e) => {
-    //debugger;
-    e.preventDefault()
-    console.log('search form')
-    //console.log('search clicked')
-    searchFormHandler(e)
-   //debugger;
-  })
 
+    e.preventDefault()
+    searchFormHandler(e)
+
+  })
 
   const createDayForm = document.querySelector('.form-container')
   createDayForm.style.display = 'none'
   const addDayForm = document.getElementById('create-day-form')
-  //const addBtn = document.querySelector('#new-day-btn')
+
   getDays()
   addBtn.addEventListener('click', () => {
-    //console.log('clicked')
-    addBtn.style.visibility = "hidden"//debugger;
+
+    addBtn.style.visibility = "hidden"
     addDay = !addDay
-    //debugger;
+
     if (addDay) {
       addDayForm.reset()
       createDayForm.style.display = 'block'
       createDayForm.addEventListener("submit", (e) => {
-        console.log('add day')
+
         e.preventDefault()
         createFormHandler(e)
       })
@@ -41,28 +42,22 @@ document.addEventListener('DOMContentLoaded', () => {
       createDayForm.style.display = 'none'
     }
   })
-  //const searchBtn = document.querySelector('#search-button')
-
-
-
-  //let createEntryForm = document.querySelector('#create-entry-form')
-  //createEntryForm.addEventListener('submit', (e) => createFormHandler(e))
 });
 
+
+
+//get request to the database
 function getDays() {
   fetch(endPoint)
     .then(res => res.json())
-    .then(days => {
-      //old code:
-      const daysData = days.data
+    .then(day => {
 
-      daysData.forEach(day => {
-        let lastDay = new Day(day).renderDay()
-      })
-      const daysEntries = days.included
+      const daysData = day.data
+      let lastDay = new Day(daysData).renderDay()
 
 
-      // new code:
+      const daysEntries = day.included
+
       const image = daysEntries.pop()
 
       let lastDaysImage = new Image(image).renderImage()
@@ -70,30 +65,17 @@ function getDays() {
       for (let i = 0; i < daysEntries.length; i++) {
             let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
           }
-    //  if (daysEntries.length > 4) {
-    //    const image = daysEntries.pop()
-    //    for (let i = 0; i < daysEntries.length; i++) {
-    //      let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
-    //    }
-    //    let lastDaysImage = new Image(image).renderImage()
-    //  } else {
-    //    for (let i = 0; i < daysEntries.length; i++) {
-    //      let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
-    //    }
-    //  }
-    //  .catch(errors => alert(@day.errors.full_messages))
       })
 }
 
+//handle input from form for creating a new day
 function createFormHandler(e) {
+
   e.preventDefault()
-  //console.log('submitted')
 
   const dateInput = document.querySelector('#day-date').value
   const nameInput = document.querySelector('#input-name').value
-  //debugger;
   const entryInput1 = document.getElementById('entry-input-1').value
-  //const entryInput1 = document.querySelector('#entry-input-1').value
   const categoryInput1 = document.querySelector('#categories-1').value
   const categoryId1 = parseInt(categoryInput1)
   const entryInput2 = document.querySelector('#entry-input-2').value
@@ -113,13 +95,15 @@ function createFormHandler(e) {
   const categoryId6 = parseInt(categoryInput6)
   const imageInput = document.querySelector('#input-url').value
   const imageCaption = document.querySelector('#input-caption').value
+
   postFetchDay(dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4, entryInput5, categoryId5, entryInput6, categoryId6, imageInput, imageCaption)
 }
 
-
+//post request to database with new day input
 function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, entry_content_5, category_id_5, entry_content_6, category_id_6, input_url, input_caption) {
-  //console.log(date, name, entry_content, category_id)
+
   const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, entry_content_5, category_id_5, entry_content_6, category_id_6, input_url, input_caption}
+
   const createDayForm = document.querySelector('.form-container')
   createDayForm.style.display = 'none'
 
@@ -133,110 +117,56 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
   })
   .then(response => response.json())
   .then(day => {
-    console.log(day)
+
     const newDayData = day.data
     let newDay = new Day(newDayData).renderNewDay()
     const newEntriesData = day.included
-    //new code:
+
     const image = newEntriesData.pop()
     let newDaysImage = new Image(image).renderNewImage()
     for (let i = 0; i < newEntriesData.length; i++) {
       let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
     }
-
-    //old code:
-    //if (newEntriesData.length > 4) {
-    //  const image = newEntriesData.pop()
-    //  for (let i = 0; i < newEntriesData.length; i++) {
-    //    let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
-    //  }
-    //  let newDaysImage = new Image(image).renderNewImage()
-      //document.querySelector(`#image-container`).innerHTML = newDaysImage.renderNewImage()
-
-
-
-  //  } else {
-  //    for (let i = 0; i < newEntriesData.length; i++) {
-  //      let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
-  //    }
-  //  }
-  }
-)
-//removeEntryCards()
+  })
 }
 
 
-
+//handle input from form to search for a day by date
 function searchFormHandler(e) {
-  //e.preventDefault()
-  console.log('search clicked')
+
   const searchInput = document.querySelector('#search-date').value
-  //debugger;
   searchDayFetch(searchInput)
-  //console.log(searchInput)
+
 }
 
 
-
+//fetch request to retrieve day by date
 function searchDayFetch(searchInput) {
   fetch(`http://localhost:3000/api/v1/days?date=${searchInput}`)
 
   .then(response => response.json())
   .then(day => {
-    //debugger;
+
     const newDayData = day.data[0]
-    //debugger;
+
     let newDay = new Day(newDayData).renderNewDay()
     const newEntriesData = day.included
-    // new code
+
     const image = newEntriesData.pop()
     let newDaysImage = new Image(image).renderNewImage()
+
     for (let i = 0; i < newEntriesData.length; i++) {
       let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
-    //old code
-
-  //  if (newEntriesData.length > 4) {
-  //    const image = newEntriesData.pop()
-  //    for (let i = 0; i < newEntriesData.length; i++) {
-  //      let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
-  //    }
-  //    let newDaysImage = new Image(image).renderNewImage()
-
-  //  } else {
-  //    for (let i = 0; i < newEntriesData.length; i++) {
-  //      let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
-  //    }
-
     }
-
-  }
-)
+  })
+//resetting search form
 const searchForm = document.getElementById('search-day-form')
 searchForm.reset()
 
 }
 
 
-
-
-//  function editableEntry(event) {
-//    let h2 = document.getElementById(event.target.id)
-//    h2.contentEditable = true
-//    div = h2.parentElement
-//    let submitBtn = document.createElement('button')
-//    submitBtn.setAttribute('id', `${event.target.id}`)
-//    submitBtn.className = 'btn btn-sm btn-outline-secondary submitBtn'
-//    submitBtn.textContent = 'Submit'
-//    div.append(submitBtn)
-//    submitBtn.addEventListener("click", event_two => {
-//      event_two.preventDefault()
-//      console.log('submitted')
-//     editEntry(event_two.target.id, h2)
-//   })
-//  }
-
-
-
+  //patch request to update content of an entry
   function editEntry(id, p) {
 
     const newContent = p.innerText
@@ -251,8 +181,7 @@ searchForm.reset()
     })
     .then(response => response.json())
       .then(entry => {
-        console.log(entry)
-        //debugger;
+        //call to create editableEntry and render updated version
         let updatedEntry = new EditableEntry(entry.data.id, entry.data.attributes.content).renderEditedEntry()
 
     })

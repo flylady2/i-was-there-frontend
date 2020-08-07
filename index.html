@@ -11,7 +11,7 @@
 
     <script type="application/javascript" src="src/day.js" charset="UTF-8"></script>
 
-    <script type= "application/javascript" src="src/index_day.js" charset="UTF-8"></script>
+    <script type= "application/javascript" src="src/index.js" charset="UTF-8"></script>
     <title>I Was There</title>
     <link href="styles/index.css" rel="stylesheet">
 
@@ -75,6 +75,8 @@
         <div class="row">
           <div class="col">
             <button id='new-day-btn' type="button"> Add a day</button>
+            <p id='reload'>To add another day, click the reload button.</p>
+            <button id='reload-btn' type="button"> Reload</button>
           </div>
           <div class= "col">
             <div class="search-form-container">
@@ -93,7 +95,7 @@
       <br><br>
 
     <div class = "form-container">
-      <form id="create-day-form" style="">
+      <form id="add-day-form" style="">
         <h3>New Day</h3>
         <label class="nativeDatePicker">Today's date:</label>
         <input type="date"  id="day-date" name="day-date" required>
@@ -103,26 +105,35 @@
         <input id='input-url' type="text" name="image" value="" placeholder="Image of the day" class="input=text" required>
         <input id='input-caption' type="text" name="caption" value="" placeholder="About the image" class="input-text" required>
 
-        <!--<label for="caption">Caption:</label>
-        <textarea id="caption" name="caption"></textarea>-->
+
 
         <br><br>
 
 
         <select id="categories-1" name= "categories">
           <option value="1">What I'm Reading</option>
-          <option value="2">Lessons Learned</option>
+          <option value="2">Lesson Learned</option>
           <option value="3">3 things</option>
-          <option value="4">1000 words</option>
+          <option value="4">Problem Solved</option>
+          <option value="5">Theo Training</option>
+          <option value="6">Something Nice!</option>
+          <option value="7">In the Garden</option>
+          <option value="8">Thinking About</option>
+          <option value="9">In Progress</option>
         </select>
         <textarea id="entry-input-1" name="content" placeholder="Put your entry here." required></textarea>
-        <!--<input id='entry-input-1' type="text" name="content"  value=""  placeholder="Put your entry here." class="input-text">-->
+  
         <br><br>
         <select id="categories-2" name= "categories">
           <option value="1">What I'm Reading</option>
-          <option value="2">Lessons Learned</option>
+          <option value="2">Lesson Learned</option>
           <option value="3">3 things</option>
-          <option value="4">1000 words</option>
+          <option value="4">Problem Solved</option>
+          <option value="5">Theo Training</option>
+          <option value="6">Something Nice!</option>
+          <option value="7">In the Garden</option>
+          <option value="8">Thinking About</option>
+          <option value="9">In Progress</option>
         </select>
 
         <textarea id="entry-input-2" name="content" placeholder="Put your entry here." required></textarea>
@@ -130,18 +141,28 @@
 
         <select id="categories-3" name= "categories">
           <option value="1">What I'm Reading</option>
-          <option value="2">Lessons Learned</option>
+          <option value="2">Lesson Learned</option>
           <option value="3">3 things</option>
-          <option value="4">1000 words</option>
+          <option value="4">Problem Solved</option>
+          <option value="5">Theo Training</option>
+          <option value="6">Something Nice!</option>
+          <option value="7">In the Garden</option>
+          <option value="8">Thinking About</option>
+          <option value="9">In Progress</option>
         </select>
 
         <textarea id="entry-input-3" name="content" placeholder="Put your entry here." required></textarea>
         <br><br>
         <select id="categories-4" name= "categories">
           <option value="1">What I'm Reading</option>
-          <option value="2">Lessons Learned</option>
+          <option value="2">Lesson Learned</option>
           <option value="3">3 things</option>
-          <option value="4">1000 words</option>
+          <option value="4">Problem Solved</option>
+          <option value="5">Theo Training</option>
+          <option value="6">Something Nice!</option>
+          <option value="7">In the Garden</option>
+          <option value="8">Thinking About</option>
+          <option value="9">In Progress</option>
         </select>
 
         <textarea id="entry-input-4" name="content" placeholder="Put your entry here." required></textarea>
@@ -149,26 +170,38 @@
 
         <select id="categories-5" name= "categories">
           <option value="1">What I'm Reading</option>
-          <option value="2">Lessons Learned</option>
+          <option value="2">Lesson Learned</option>
           <option value="3">3 things</option>
-          <option value="4">1000 words</option>
+          <option value="4">Problem Solved</option>
+          <option value="5">Theo Training</option>
+          <option value="6">Something Nice!</option>
+          <option value="7">In the Garden</option>
+          <option value="8">Thinking About</option>
+          <option value="9">In Progress</option>
         </select>
 
         <textarea id="entry-input-5" name="content" placeholder="Put your entry here." required></textarea>
         <br><br>
-        
+
         <select id="categories-6" name= "categories">
           <option value="1">What I'm Reading</option>
-          <option value="2">Lessons Learned</option>
+          <option value="2">Lesson Learned</option>
           <option value="3">3 things</option>
-          <option value="4">1000 words</option>
+          <option value="4">Problem Solved</option>
+          <option value="5">Theo Training</option>
+          <option value="6">Something Nice!</option>
+          <option value="7">In the Garden</option>
+          <option value="8">Thinking About</option>
+          <option value="9">In Progress</option>
         </select>
+
 
         <textarea id="entry-input-6" name="content" placeholder="Put your entry here." required></textarea>
         <br><br>
 
 
         <input id='create-button' type="submit" name="submit" value="Create new day" class="submit">
+        <br><br>
       </form>
     </div>
 

@@ -1,16 +1,15 @@
 class EditableEntry {
 
   constructor(id, content) {
-
-    //console.log(event)
     this.id = id
     this.content = content
 
   }
 
+  //make newly created EditableEntry editable
   makeEditable() {
     let p = document.getElementById(this.id)
-    //console.log(this.target_id)
+
     p.contentEditable = true
     let div = p.parentElement
     let submitBtn = document.createElement('button')
@@ -18,25 +17,22 @@ class EditableEntry {
     submitBtn.className = 'btn btn-sm btn-outline-secondary submitBtn'
     submitBtn.textContent = 'Submit'
     div.append(submitBtn)
-    submitBtn.addEventListener("click", event_two => {
-      event_two.preventDefault()
-      console.log('submitted')
-      editEntry(event_two.target.id, p)
+    submitBtn.addEventListener("click", event => {
+      editEntry(event.target.id, p)
    })
   }
 
-
+    //render newly edited entry
     renderEditedEntry() {
       let id = this.id
-      //console.log(entryData)
+
       let submitBtn = document.querySelector('.submitBtn')
       submitBtn.remove()
 
       let p = document.getElementById(this.id)
       p.innerText = this.content
       p.contentEditable = false
-      
-      //console.log(entry)
+
     }
 
 
