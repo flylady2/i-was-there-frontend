@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       addDayForm.addEventListener("submit", (e) => {
 
         e.preventDefault()
-        createFormHandler(e)
+        addDayFormHandler(e)
       })
 
     } else {
@@ -69,7 +69,7 @@ function getDays() {
 }
 
 //handle input from form for creating a new day
-function createFormHandler(e) {
+function addDayFormHandler(e) {
 
   e.preventDefault()
 
@@ -104,8 +104,9 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
 
   const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, entry_content_5, category_id_5, entry_content_6, category_id_6, input_url, input_caption}
 
-  const createDayForm = document.querySelector('.form-container')
-  createDayForm.style.display = 'none'
+  
+  const addDayForm = document.getElementById('add-day-form')
+  addDayForm.style.display = 'none'
 
   fetch(endPoint, {
     method: "POST",
@@ -160,8 +161,8 @@ function searchDayFetch(searchInput) {
     }
   })
 //resetting search form
-const searchForm = document.getElementById('search-day-form')
-searchForm.reset()
+  const searchForm = document.getElementById('search-day-form')
+  searchForm.reset()
 
 }
 
