@@ -104,7 +104,7 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
 
   const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, entry_content_5, category_id_5, entry_content_6, category_id_6, input_url, input_caption}
 
-  
+
   const addDayForm = document.getElementById('add-day-form')
   addDayForm.style.display = 'none'
 
@@ -117,7 +117,21 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
     body: JSON.stringify(bodyData)
   })
   .then(response => response.json())
+  //console.log(response)
   .then(day => {
+    if (day.errors) {
+      alert(day.errors)
+      const reloadP = document.querySelector('#reload')
+      reloadP.style.visibility = "visible"
+      const reloadBtn = document.querySelector('#reload-btn')
+      reloadBtn.style.visibility = "visible"
+
+      reloadBtn.addEventListener('click', () => {
+        location.reload()
+      })
+    } else {
+
+
 
     const newDayData = day.data
     let newDay = new Day(newDayData).renderNewDay()
@@ -128,7 +142,9 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
     for (let i = 0; i < newEntriesData.length; i++) {
       let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
     }
-  })
+  }
+    })
+
 }
 
 
@@ -147,18 +163,26 @@ function searchDayFetch(searchInput) {
 
   .then(response => response.json())
   .then(day => {
+    console.log(day)
+    //debugger;
+    if (day.data.length === 0) {
+      alert("That date does not exist.")
+    } else {
 
-    const newDayData = day.data[0]
+      const newDayData = day.data[0]
 
-    let newDay = new Day(newDayData).renderDay()
-    const newEntriesData = day.included
+      let newDay = new Day(newDayData).renderDay()
+      const newEntriesData = day.included
 
-    const image = newEntriesData.pop()
-    let newDaysImage = new Image(image).renderNewImage()
+      const image = newEntriesData.pop()
+      let newDaysImage = new Image(image).renderNewImage()
 
-    for (let i = 0; i < newEntriesData.length; i++) {
-      let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
+      for (let i = 0; i < newEntriesData.length; i++) {
+        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
+      }
     }
+
+
   })
 //resetting search form
   const searchForm = document.getElementById('search-day-form')
