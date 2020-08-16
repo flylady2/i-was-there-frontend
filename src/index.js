@@ -67,6 +67,21 @@ function getDays() {
           }
       })
 }
+function deleteDay(id) {
+  const deleteData = {id}
+  fetch(`http://localhost:3000/api/v1/days/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(deleteData)
+  })
+  location.reload()
+//  .then(response => response.json())
+//    .then(entry => {
+
+}
 
 //handle input from form for creating a new day
 function addDayFormHandler(e) {
