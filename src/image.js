@@ -11,11 +11,11 @@ class Image {
   //render image from most recently created day in database
   renderImage() {
 
-    let imageContainer = document.getElementById("image-container")
+    const imageContainer = document.getElementById("image-container")
     const div = document.createElement('div')
     div.className = 'container-fluid'
     imageContainer.append(div)
-    let img = document.createElement('img')
+    const img = document.createElement('img')
     img.setAttribute('id', 'img')
     img.className = 'img-fluid'
     img.src = `${this.url}`
@@ -32,10 +32,8 @@ class Image {
   //render image from newly created day and day found in search
   renderNewImage() {
 
-    let img = document.getElementById('img')
-    img.src = `${this.url}`
-    const p1 = document.getElementById('p1')
-    p1.innerText = `${this.caption}`
+    document.getElementById('img').src = `${this.url}`
+    document.getElementById('p1').innerText = `${this.caption}`
 
   }
 }

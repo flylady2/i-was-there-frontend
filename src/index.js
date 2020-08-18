@@ -6,7 +6,7 @@ const endPoint = "http://localhost:3000/api/v1/days";
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const addBtn = document.querySelector('#new-day-btn')
+  const addBtn = document.querySelector('#add-day-btn')
   const reloadBtn = document.querySelector('#reload-btn')
   reloadBtn.style.visibility = "hidden"
   const reloadP = document.querySelector('#reload')
@@ -23,8 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
   addDayForm.style.display = 'none'
 
 
-
-  getDays()
   addBtn.addEventListener('click', () => {
 
     addBtn.style.visibility = "hidden"
@@ -44,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       addDayForm.style.display = 'none'
     }
   })
+  getDays()
 });
 
 
@@ -57,18 +56,18 @@ function getDays() {
       const daysData = day.data
       let lastDay = new Day(daysData).renderDay()
 
-
       const daysEntries = day.included
 
       const image = daysEntries.pop()
 
       let lastDaysImage = new Image(image).renderImage()
-
-      for (let i = 0; i < daysEntries.length; i++) {
+      const arrayLength = daysEntries.length
+      for (let i = 0; i < arrayLength; i++) {
             let lastDayEntry = new Entry(daysEntries[i], `${i}`).renderEntry()
           }
       })
 }
+
 function deleteDay(id) {
   const deleteData = {id}
   fetch(`http://localhost:3000/api/v1/days/${id}`, {
@@ -80,8 +79,6 @@ function deleteDay(id) {
     body: JSON.stringify(deleteData)
   })
   location.reload()
-//  .then(response => response.json())
-//    .then(entry => {
 
 }
 
@@ -138,8 +135,9 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
   .then(day => {
     if (day.errors) {
       alert(day.errors)
-      const reloadP = document.querySelector('#reload')
-      reloadP.style.visibility = "visible"
+
+      document.querySelector('#reload').style.visibility = "visible"
+
       const reloadBtn = document.querySelector('#reload-btn')
       reloadBtn.style.visibility = "visible"
 
@@ -156,7 +154,8 @@ function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_
 
     const image = newEntriesData.pop()
     let newDaysImage = new Image(image).renderNewImage()
-    for (let i = 0; i < newEntriesData.length; i++) {
+    const arrayLength = newEntriesData.length
+    for (let i = 0; i < arrayLength; i++) {
       let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderNewEntry()
     }
   }
@@ -180,22 +179,22 @@ function searchDayFetch(searchInput) {
 
   .then(response => response.json())
   .then(day => {
-    console.log(day)
-    //debugger;
+
     if (day.data.length === 0) {
       alert("That date does not exist.")
     } else {
 
-      const newDayData = day.data[0]
+      const foundDayData = day.data[0]
 
-      let newDay = new Day(newDayData).renderDay()
-      const newEntriesData = day.included
+      let foundDay = new Day(foundDayData).renderNewDay()
+      const foundEntriesData = day.included
 
-      const image = newEntriesData.pop()
-      let newDaysImage = new Image(image).renderNewImage()
+      const image = foundEntriesData.pop()
+      let foundDaysImage = new Image(image).renderNewImage()
 
-      for (let i = 0; i < newEntriesData.length; i++) {
-        let newDayEntry = new Entry(newEntriesData[i], `${i}`).renderFoundEntry()
+      const arrayLength = foundEntriesData.length
+      for (let i = 0; i < arrayLength; i++) {
+        let newDayEntry = new Entry(foundEntriesData[i], `${i}`).renderFoundEntry()
       }
     }
 

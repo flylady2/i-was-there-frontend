@@ -44,16 +44,15 @@ class Entry {
   //render entry from newly created day
   renderNewEntry() {
 
-    const divCol = document.getElementById(this.i)
-    const cardBody = divCol.firstChild.firstChild
-
-    const h5 = divCol.firstChild.firstChild.firstChild
+    const cardBody = document.getElementById(this.i).firstChild.firstChild
+    const h5 = document.getElementById(this.i).firstChild.firstChild.firstChild
     h5.innerText = `${this.category_name}`
+
     const p = h5.nextSibling
     p.setAttribute('id', this.id)
     p.innerText = `${this.content}`
 
-    let editBtn = document.createElement('button')
+    const editBtn = document.createElement('button')
     editBtn.setAttribute('id', this.id)
 
     editBtn.className = 'btn btn-sm btn-outline-secondary'
@@ -72,14 +71,13 @@ class Entry {
   //render entry from day found by search
   renderFoundEntry() {
 
-    const divCol = document.getElementById(this.i)
-    const h5 = divCol.firstChild.firstChild.firstChild
+    const h5 = document.getElementById(this.i).firstChild.firstChild.firstChild
     h5.innerText = `${this.category_name}`
-    const p = h5.nextSibling
 
+    const p = h5.nextSibling
     p.innerText = `${this.content}`
 
-    let editBtn = p.nextSibling
+    const editBtn = p.nextSibling
     if (editBtn) {
       editBtn.remove()
     }
