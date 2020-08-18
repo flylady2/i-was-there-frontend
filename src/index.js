@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const addDayForm = document.getElementById('add-day-form')
   addDayForm.style.display = 'none'
 
+
+
   getDays()
   addBtn.addEventListener('click', () => {
 
