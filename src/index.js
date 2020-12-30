@@ -6,6 +6,14 @@ const endPoint = "http://localhost:3000/api/v1/days";
 
 
 document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.querySelector('#login-form')
+  loginForm.addEventListener("submit", (e) => {
+    loginFormHandler(e)
+  })
+  const signupForm = document.querySelector('#signup-form')
+  signupForm.addEventListener("submit", (e) => {
+    signupFormHandler(e)
+  })
   const addBtn = document.querySelector('#add-day-btn')
   const reloadBtn = document.querySelector('#reload-btn')
   reloadBtn.style.visibility = "hidden"
@@ -42,10 +50,84 @@ document.addEventListener('DOMContentLoaded', () => {
       addDayForm.style.display = 'none'
     }
   })
-  getDays()
+  //getDays()
 });
 
+function loginFormHandler(e) {
+  e.preventDefault()
+  const loginForm = document.querySelector('#login-form')
+  const usernameInput = e.target.querySelector('#login-username').value
+  const passwordInput = e.target.querySelector('#login-password').value
+  loginFetch(usernameInput, passwordInput)
+  loginForm.reset()
+}
 
+function loginFetch(username, password) {
+  const bodyData = { user:
+    {
+    username: username,
+    password: password
+    }
+  }
+  fetch("http:localhost:3000/api/v1/login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(bodyData)
+  })
+  .then(response => response.json())
+  .then(json => {
+    localStorage.setItem('jwt_token', json.jwt)
+    renderUserPage()
+  })
+}
+
+function renderUserPage() {
+  //debugger;
+  const token = localStorage.getItem('jwt_token')
+  //console.log(token)
+  //need to personalize this to specific user unless I can only call days for current_user
+  fetch("http://localhost:3000/api/v1/page", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  .then(response => response.json())
+  .then(json => {
+    console.log(json)
+    alert(`Welcome back ${json.user.data.attributes.username}`)
+
+  })
+}
+
+function signupFormHandler(e) {
+  e.preventDefault()
+  const usernameInput = e.target.querySelector('#signup-username').value
+  const passwordInput = e.target.querySelector('#signup-password').value
+  signupFetch(usernameInput, passwordInput)
+  const signupForm = document.querySelector('#signup-form')
+  signupForm.reset()
+}
+
+function signupFetch(username, password) {
+  const bodyData = { user:
+    {
+    username: username,
+    password: password
+    }
+  }
+  fetch("http:localhost:3000/api/v1/signup", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(bodyData)
+  })
+  .then(response => response.json())
+  .then(json => {
+    localStorage.setItem('jwt_token', json.jwt)
+    console.log(json)
+    const token = localStorage.getItem('jwt_token')
+    loginFetch(username, password)
+  })
+}
 
 //get request to the database
 function getDays() {
