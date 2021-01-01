@@ -97,6 +97,7 @@ function renderUserPage() {
     alert(`Welcome back ${json.user.data.attributes.username}`)
 
   })
+  getDays()
 }
 
 function signupFormHandler(e) {
@@ -129,13 +130,20 @@ function signupFetch(username, password) {
   })
 }
 
+
 //get request to the database
 function getDays() {
-  fetch(endPoint)
+  const token = localStorage.getItem('jwt_token')
+  fetch(endPoint, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
     .then(res => res.json())
     .then(day => {
 
       const daysData = day.data
+      //debugger;
       let lastDay = new Day(daysData).renderDay()
 
       const daysEntries = day.included
