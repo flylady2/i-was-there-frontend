@@ -94,7 +94,7 @@ function renderUserPage() {
   .then(response => response.json())
   .then(json => {
     console.log(json)
-    alert(`Welcome back ${json.user.data.attributes.username}`)
+    //alert(`Welcome back ${json.user.data.attributes.username}`)
 
   })
   getDays()
@@ -199,24 +199,49 @@ function addDayFormHandler(e) {
   const categoryId6 = parseInt(categoryInput6)
   const imageInput = document.querySelector('#input-url').value
   const imageCaption = document.querySelector('#input-caption').value
+  //const bodyData = {dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4, entryInput5, categoryId5, entryInput6, categoryId6, imageInput, imageCaption}
+  getUsersId(dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4, entryInput5, categoryId5, entryInput6, categoryId6, imageInput, imageCaption)
+}
 
-  postFetchDay(dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4, entryInput5, categoryId5, entryInput6, categoryId6, imageInput, imageCaption)
+
+  function getUsersId(dateInput, nameInput, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4, entryInput5, categoryId5, entryInput6, categoryId6, imageInput, imageCaption) {
+
+  const token = localStorage.getItem('jwt_token')
+  //console.log(token)
+  //need to personalize this to specific user unless I can only call days for current_user
+  fetch("http://localhost:3000/api/v1/page", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  .then(response => response.json())
+  .then(json => {
+    console.log(json)
+
+    const user_id = parseInt(json.user.data.id)
+  postFetchDay(dateInput, nameInput, user_id, entryInput1, categoryId1, entryInput2, categoryId2, entryInput3, categoryId3, entryInput4, categoryId4, entryInput5, categoryId5, entryInput6, categoryId6, imageInput, imageCaption)
+  })
 }
 
 //post request to database with new day input
-function postFetchDay(date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, entry_content_5, category_id_5, entry_content_6, category_id_6, input_url, input_caption) {
+function postFetchDay(date, name, user_id, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, entry_content_5, category_id_5, entry_content_6, category_id_6, input_url, input_caption) {
 
-  const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, entry_content_5, category_id_5, entry_content_6, category_id_6, input_url, input_caption}
+  const bodyData = {date, name, user_id, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, entry_content_5, category_id_5, entry_content_6, category_id_6, input_url, input_caption}
+
+  //const bodyData = {date, name, entry_content_1, category_id_1, entry_content_2, category_id_2, entry_content_3, category_id_3, entry_content_4, category_id_4, entry_content_5, category_id_5, entry_content_6, category_id_6, input_url, input_caption}
 
 
   const addDayForm = document.getElementById('add-day-form')
   addDayForm.style.display = 'none'
 
+  const token = localStorage.getItem('jwt_token')
+
   fetch(endPoint, {
     method: "POST",
     headers: {
       "Content-type": "application/json",
-      "Accept": "application/json"
+      "Accept": "application/json",
+      Authorization: `Bearer ${token}`
     },
     body: JSON.stringify(bodyData)
   })

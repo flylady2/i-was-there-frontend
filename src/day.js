@@ -4,6 +4,7 @@ class Day {
     this.id = day.id
     this.name = day.attributes.name
     this.date = day.attributes.date
+    this.user_id = day.attributes.user_id
   }
 
   //render day attributes from most recently created day in the database
